@@ -1,0 +1,365 @@
+{
+  "eventType": {
+    "type": "dropdown",
+    "label": "Goal Type",
+    "value": "manual",
+    "options": {
+      "manual": "🖐️ Manual (chat commands only)",
+      "follower": "👥 Twitch: Followers",
+      "subscriber": "📺 Twitch/YT: Subscribers",
+      "tip": "💰 Tips/Donations",
+      "cheer": "💎 Twitch: Bits/Cheers",
+      "member": "⭐ YouTube: Members",
+      "superchat": "💬 YouTube: Super Chats"
+    },
+    "group": "📊 Goal Settings"
+  },
+  "eventPeriod": {
+    "type": "dropdown",
+    "label": "Goal Period",
+    "value": "session",
+    "options": {
+      "session": "🔴 Session (current stream)",
+      "week": "📆 This Week",
+      "month": "🗓️ This Month",
+      "total": "♾️ All Time"
+    },
+    "group": "📊 Goal Settings"
+  },
+  "goalAmount": {
+    "type": "number",
+    "label": "Goal Target",
+    "value": 100,
+    "min": 1,
+    "max": 1000000,
+    "group": "📊 Goal Settings"
+  },
+  "currency": {
+    "type": "dropdown",
+    "label": "Currency Symbol (for tips)",
+    "value": "$",
+    "options": {
+      "$": "$ USD",
+      "€": "€ EUR",
+      "£": "£ GBP",
+      "zł": "zł PLN",
+      "¥": "¥ JPY/CNY",
+      "₽": "₽ RUB",
+      "R$": "R$ BRL",
+      "kr": "kr SEK/NOK/DKK",
+      "₹": "₹ INR",
+      "custom": "✏️ Custom (enter below)"
+    },
+    "group": "📊 Goal Settings"
+  },
+  "customCurrency": {
+    "type": "text",
+    "label": "Custom Currency Symbol",
+    "value": "",
+    "group": "📊 Goal Settings"
+  },
+  "goalTitle": {
+    "type": "text",
+    "label": "Title Text",
+    "value": "DAILY QUEST",
+    "group": "📝 Title"
+  },
+  "titlePosition": {
+    "type": "dropdown",
+    "label": "Title Position",
+    "value": "top",
+    "options": {
+      "top": "⬆️ Above",
+      "bottom": "⬇️ Below",
+      "left": "⬅️ Left",
+      "right": "➡️ Right",
+      "hidden": "🚫 Hidden"
+    },
+    "group": "📝 Title"
+  },
+  "titleAlign": {
+    "type": "dropdown",
+    "label": "Title Align To (when above/below)",
+    "value": "widget",
+    "options": {
+      "widget": "📦 Whole widget (bar + icon)",
+      "bar": "📊 Bar only"
+    },
+    "group": "📝 Title"
+  },
+  "valuesPosition": {
+    "type": "dropdown",
+    "label": "Progress Values (0/100)",
+    "value": "below",
+    "options": {
+      "below": "⬇️ Below bar",
+      "above": "⬆️ Above bar",
+      "inside-left": "⬅️ Inside bar (left)",
+      "inside-center": "⏺️ Inside bar (center)",
+      "inside-right": "➡️ Inside bar (right)",
+      "left": "◀️ Left of bar",
+      "right": "▶️ Right of bar",
+      "hidden": "🚫 Hidden"
+    },
+    "group": "📝 Title"
+  },
+  "colorTheme": {
+    "type": "dropdown",
+    "label": "Color Theme",
+    "value": "cyberpunk",
+    "options": {
+      "custom": "🎨 Custom (manual colors)",
+      "cyberpunk": "🌃 Cyberpunk",
+      "synthwave": "🌆 Synthwave",
+      "arcade": "👾 Arcade",
+      "bloodborne": "🩸 Bloodborne",
+      "ocean": "🌊 Ocean",
+      "sakura": "🌸 Sakura",
+      "toxic": "☢️ Toxic",
+      "royal": "👑 Royal",
+      "ice": "❄️ Ice",
+      "fire": "🔥 Fire",
+      "matrix": "💚 Matrix",
+      "sunset": "🌅 Sunset",
+      "kawaii": "🦄 Kawaii"
+    },
+    "group": "🎨 Theme"
+  },
+  "barWidth": {
+    "type": "slider",
+    "label": "Bar Width",
+    "value": 280,
+    "min": 150,
+    "max": 500,
+    "step": 10,
+    "group": "📐 Layout"
+  },
+  "barHeight": {
+    "type": "slider",
+    "label": "Bar Height",
+    "value": 32,
+    "min": 20,
+    "max": 60,
+    "step": 2,
+    "group": "📐 Layout"
+  },
+  "glowSize": {
+    "type": "slider",
+    "label": "Glow Size",
+    "value": 10,
+    "min": 0,
+    "max": 25,
+    "step": 1,
+    "group": "📐 Layout"
+  },
+  "animSpeed": {
+    "type": "slider",
+    "label": "Gradient Animation Speed (seconds)",
+    "value": 3,
+    "min": 1,
+    "max": 10,
+    "step": 1,
+    "group": "📐 Layout"
+  },
+  "fillColor1": {
+    "type": "colorpicker",
+    "label": "Gradient Color 1",
+    "value": "#00fff2",
+    "group": "🎨 Custom Colors"
+  },
+  "fillColor2": {
+    "type": "colorpicker",
+    "label": "Gradient Color 2",
+    "value": "#4361ee",
+    "group": "🎨 Custom Colors"
+  },
+  "fillColor3": {
+    "type": "colorpicker",
+    "label": "Gradient Color 3",
+    "value": "#9d4edd",
+    "group": "🎨 Custom Colors"
+  },
+  "borderColor": {
+    "type": "colorpicker",
+    "label": "Border Color",
+    "value": "#9d4edd",
+    "group": "🎨 Custom Colors"
+  },
+  "barBgColor": {
+    "type": "colorpicker",
+    "label": "Bar Background",
+    "value": "#0d0221",
+    "group": "🎨 Custom Colors"
+  },
+  "glowColor": {
+    "type": "colorpicker",
+    "label": "Glow Color",
+    "value": "#00fff2",
+    "group": "🎨 Custom Colors"
+  },
+  "overflowBehavior": {
+    "type": "dropdown",
+    "label": "When Goal Exceeded",
+    "value": "show",
+    "options": {
+      "show": "📊 Show overflow (175/100)",
+      "cap": "🔒 Cap at goal (100/100)",
+      "hide": "👻 Hide after completion"
+    },
+    "group": "✨ Effects"
+  },
+  "celebrationEffect": {
+    "type": "dropdown",
+    "label": "Celebration Effect",
+    "value": "theme",
+    "options": {
+      "theme": "✨ Theme Default",
+      "none": "🚫 None",
+      "confetti": "🎊 Confetti",
+      "glitch": "⚡ Glitch",
+      "neon": "💫 Neon Burst",
+      "levelup": "🆙 Level Up!",
+      "blood": "🩸 Blood Splatter",
+      "bubbles": "🫧 Bubbles",
+      "petals": "🌸 Cherry Blossoms",
+      "radioactive": "☢️ Radioactive",
+      "sparkles": "✨ Golden Sparkles",
+      "snowflakes": "❄️ Snowflakes",
+      "flames": "🔥 Flames",
+      "matrix": "💚 Code Rain",
+      "sunrays": "☀️ Sun Rays",
+      "kawaii": "💖 Hearts & Unicorns"
+    },
+    "group": "✨ Effects"
+  },
+  "effectDuration": {
+    "type": "slider",
+    "label": "Effect Duration (seconds)",
+    "value": 4,
+    "min": 2,
+    "max": 10,
+    "step": 1,
+    "group": "✨ Effects"
+  },
+  "effectRepeat": {
+    "type": "dropdown",
+    "label": "Repeat Effect After 100%",
+    "value": "once",
+    "options": {
+      "once": "1️⃣ Only once (at goal)",
+      "every": "🔄 Every addition",
+      "milestones": "🏆 At milestones (100%, 150%...)"
+    },
+    "group": "✨ Effects"
+  },
+  "barAnimation": {
+    "type": "dropdown",
+    "label": "Bar Animation on Progress",
+    "value": "none",
+    "options": {
+      "none": "🚫 None",
+      "pulse": "💫 Pulse glow",
+      "flash": "⚡ Flash",
+      "shake": "📳 Shake",
+      "bounce": "🎾 Bounce"
+    },
+    "group": "✨ Effects"
+  },
+  "previewEffect": {
+    "type": "checkbox",
+    "label": "👁️ Preview Effect Now (uncheck after)",
+    "value": false,
+    "group": "✨ Effects"
+  },
+  "showIcon": {
+    "type": "checkbox",
+    "label": "Show Icon",
+    "value": true,
+    "group": "🖼️ Icon"
+  },
+  "iconPosition": {
+    "type": "dropdown",
+    "label": "Icon Position",
+    "value": "left",
+    "options": {
+      "left": "⬅️ Left of Bar",
+      "right": "➡️ Right of Bar"
+    },
+    "group": "🖼️ Icon"
+  },
+  "iconSize": {
+    "type": "slider",
+    "label": "Icon Size",
+    "value": 32,
+    "min": 16,
+    "max": 80,
+    "step": 4,
+    "group": "🖼️ Icon"
+  },
+  "iconType": {
+    "type": "dropdown",
+    "label": "Icon Style",
+    "value": "star",
+    "options": {
+      "custom": "📤 Custom (upload below)",
+      "star": "⭐ Star",
+      "heart": "❤️ Heart",
+      "diamond": "💎 Diamond",
+      "trophy": "🏆 Trophy",
+      "coin": "🪙 Coin",
+      "fire": "🔥 Fire",
+      "bolt": "⚡ Lightning",
+      "crown": "👑 Crown",
+      "sword": "⚔️ Sword",
+      "shield": "🛡️ Shield",
+      "potion": "🧪 Potion",
+      "gem": "💠 Gem",
+      "skull": "💀 Skull",
+      "flower": "🌸 Flower",
+      "music": "🎵 Music Note"
+    },
+    "group": "🖼️ Icon"
+  },
+  "customIcon": {
+    "type": "image-input",
+    "label": "Custom Icon Image",
+    "value": "",
+    "group": "🖼️ Icon"
+  },
+  "modCommands": {
+    "type": "checkbox",
+    "label": "Allow Mods to Use Commands",
+    "value": true,
+    "group": "⌨️ Commands"
+  },
+  "cmdAdd": {
+    "type": "text",
+    "label": "➕ Add Command",
+    "value": "!add",
+    "group": "⌨️ Commands"
+  },
+  "cmdDrop": {
+    "type": "text",
+    "label": "➖ Drop Command",
+    "value": "!drop",
+    "group": "⌨️ Commands"
+  },
+  "cmdProgress": {
+    "type": "text",
+    "label": "📊 Set Progress Command",
+    "value": "!progress",
+    "group": "⌨️ Commands"
+  },
+  "cmdTarget": {
+    "type": "text",
+    "label": "🎯 Set Target Command",
+    "value": "!target",
+    "group": "⌨️ Commands"
+  },
+  "cmdClear": {
+    "type": "text",
+    "label": "🗑️ Clear Command",
+    "value": "!clear",
+    "group": "⌨️ Commands"
+  }
+}

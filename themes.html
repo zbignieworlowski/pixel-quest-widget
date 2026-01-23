@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Quest - Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0d0221 0%, #1a1a2e 50%, #16213e 100%);
+      min-height: 100vh;
+      color: #fff;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #00fff2, #ff00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .settings-panel {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px 25px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .settings-panel h3 {
+      width: 100%;
+      font-size: 0.9rem;
+      color: #00fff2;
+      margin-bottom: 5px;
+    }
+
+    .setting-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .setting-group label {
+      font-size: 0.75rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .setting-group select, .setting-group input {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      color: #fff;
+      padding: 8px 12px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      min-width: 180px;
+    }
+
+    .setting-group select:focus, .setting-group input:focus {
+      outline: none;
+      border-color: #00fff2;
+    }
+
+    .setting-group input[type="range"] {
+      min-width: 120px;
+      padding: 0;
+    }
+
+    .range-value {
+      font-size: 0.8rem;
+      color: #00fff2;
+      margin-left: 8px;
+    }
+
+    .demo-controls {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .demo-btn-small {
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .demo-btn-small:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .demo-btn-small.active {
+      background: #00fff2;
+      color: #000;
+      border-color: #00fff2;
+    }
+
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 30px;
+    }
+
+    .theme-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 30px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .theme-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .demo-btn {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .demo-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .preview-bar-fill {
+      transition: width 0.8s ease;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.5); }
+    }
+
+    @keyframes shake-effect {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    @keyframes flash-effect {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(2.5); }
+    }
+
+    .celebrating .preview-bar-fill {
+      animation: pulse-glow 0.4s ease infinite;
+    }
+
+    .celebrating .widget-preview {
+      animation: shake-effect 0.15s ease 6;
+    }
+
+    .celebrating .preview-bar-border {
+      animation: flash-effect 0.2s ease 4;
+    }
+
+    /* Confetti styles */
+    .confetti-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      opacity: 0;
+    }
+
+    @keyframes confetti-fall {
+      0% { opacity: 1; transform: translateY(-10px) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(80px) rotate(720deg); }
+    }
+
+    /* Glitch effect */
+    @keyframes glitch-anim {
+      0%, 100% { transform: translate(0); filter: hue-rotate(0deg); }
+      20% { transform: translate(-3px, 3px); filter: hue-rotate(90deg); }
+      40% { transform: translate(3px, -3px); filter: hue-rotate(180deg); }
+      60% { transform: translate(-3px, -3px); filter: hue-rotate(270deg); }
+      80% { transform: translate(3px, 3px); filter: hue-rotate(360deg); }
+    }
+    .glitch-active { animation: glitch-anim 0.1s ease infinite; }
+
+    /* Neon burst */
+    @keyframes neon-burst {
+      0% { transform: translate(-50%,-50%) scale(0); opacity: 1; }
+      100% { transform: translate(-50%,-50%) scale(3); opacity: 0; }
+    }
+
+    /* Level up text */
+    @keyframes levelup-text {
+      0% { opacity: 0; transform: translate(-50%,-50%) scale(0.5); }
+      20% { opacity: 1; transform: translate(-50%,-50%) scale(1.2); }
+      40% { transform: translate(-50%,-50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%,-80%) scale(1); }
+    }
+
+    /* Blood drip */
+    @keyframes blood-drip {
+      0% { transform: translateY(-10px) scaleY(0.5); opacity: 1; }
+      100% { transform: translateY(80px) scaleY(2); opacity: 0; }
+    }
+
+    /* Bubble rise */
+    @keyframes bubble-rise {
+      0% { transform: translateY(80px) scale(0.5); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-20px) scale(1); opacity: 0; }
+    }
+
+    /* Petal fall */
+    @keyframes petal-fall {
+      0% { transform: translateY(-20px) rotate(0deg) translateX(0); opacity: 1; }
+      100% { transform: translateY(80px) rotate(360deg) translateX(30px); opacity: 0; }
+    }
+
+    /* Radioactive pulse */
+    @keyframes radioactive-pulse {
+      0% { transform: scale(0.5); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.8; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    /* Sparkle twinkle */
+    @keyframes sparkle-twinkle {
+      0% { transform: scale(0) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1) rotate(180deg); opacity: 1; }
+      100% { transform: scale(0) rotate(360deg); opacity: 0; }
+    }
+
+    /* Snow fall */
+    @keyframes snow-fall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(80px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Flame rise */
+    @keyframes flame-rise {
+      0% { transform: translateY(50px) scale(1); opacity: 1; }
+      50% { transform: translateY(0) scale(1.3); opacity: 0.8; }
+      100% { transform: translateY(-30px) scale(0.5); opacity: 0; }
+    }
+
+    /* Matrix rain */
+    @keyframes matrix-rain {
+      0% { transform: translateY(-20px); opacity: 1; }
+      100% { transform: translateY(100px); opacity: 0; }
+    }
+
+    /* Sunray expand */
+    @keyframes sunray-expand {
+      0% { transform: scaleX(0); opacity: 0; }
+      50% { transform: scaleX(1); opacity: 1; }
+      100% { transform: scaleX(0); opacity: 0; }
+    }
+
+    /* Kawaii float */
+    @keyframes kawaii-float {
+      0% { transform: translateY(50px) scale(0) rotate(-20deg); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateY(-50px) scale(1.2) rotate(20deg); opacity: 0; }
+    }
+
+    /* Bar animations on progress */
+    @keyframes bar-pulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.5); box-shadow: 0 0 25px currentColor; }
+    }
+
+    @keyframes bar-flash {
+      0%, 100% { filter: brightness(1); }
+      25% { filter: brightness(2.5); }
+      50% { filter: brightness(1); }
+      75% { filter: brightness(2); }
+    }
+
+    @keyframes bar-shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-4px); }
+      40% { transform: translateX(4px); }
+      60% { transform: translateX(-3px); }
+      80% { transform: translateX(3px); }
+    }
+
+    @keyframes bar-bounce {
+      0%, 100% { transform: scale(1); }
+      30% { transform: scale(1.05, 0.95); }
+      50% { transform: scale(0.95, 1.05); }
+      70% { transform: scale(1.02, 0.98); }
+    }
+
+    .preview-bar-container.bar-pulse { animation: bar-pulse 0.5s ease 2; }
+    .preview-bar-container.bar-flash { animation: bar-flash 0.4s ease; }
+    .preview-bar-container.bar-shake { animation: bar-shake 0.4s ease; }
+    .preview-bar-container.bar-bounce { animation: bar-bounce 0.5s ease; }
+
+    .theme-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .theme-vibe {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    /* Widget Preview Styles */
+    .widget-preview {
+      font-family: 'Press Start 2P', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      transition: opacity 0.5s ease;
+    }
+
+    .preview-title {
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      background: rgba(13, 2, 33, 0.8);
+      white-space: nowrap;
+      order: 0;
+    }
+
+    /* Title positions */
+    .widget-preview.title-top .preview-title { margin-bottom: 10px; }
+    .widget-preview.title-bottom .preview-title { margin-top: 10px; order: 3; }
+    .widget-preview.title-hidden .preview-title { display: none; }
+
+    .widget-preview.title-left,
+    .widget-preview.title-right {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      gap: 8px 12px;
+      align-items: center;
+    }
+
+    .widget-preview.title-left .preview-title {
+      grid-column: 1;
+      grid-row: 1;
+      margin: 0;
+    }
+
+    .widget-preview.title-left .preview-bar-container {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .widget-preview.title-left .preview-values {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      justify-content: center;
+    }
+
+    .widget-preview.title-right .preview-title {
+      grid-column: 2;
+      grid-row: 1;
+      margin: 0;
+      justify-self: end;
+    }
+
+    .widget-preview.title-right .preview-bar-container {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .widget-preview.title-right .preview-values {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      justify-content: center;
+    }
+
+    .preview-bar-container {
+      width: 100%;
+      height: 28px;
+    }
+
+    .preview-bar-border {
+      width: 100%;
+      height: 100%;
+      padding: 3px;
+    }
+
+    .preview-bar-bg {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .preview-bar-fill {
+      height: 100%;
+      width: 65%;
+      transition: width 0.5s ease;
+    }
+
+    .preview-values {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 10px;
+    }
+
+    .preview-separator {
+      opacity: 0.5;
+    }
+
+    /* Values positions */
+    .widget-preview.values-below .preview-values { margin-top: 8px; order: 2; }
+    .widget-preview.values-above .preview-values { margin-top: 0; margin-bottom: 8px; order: -1; }
+    .widget-preview.values-hidden .preview-values { display: none; }
+
+    .widget-preview.values-inside-left .preview-values,
+    .widget-preview.values-inside-center .preview-values,
+    .widget-preview.values-inside-right .preview-values {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: 0;
+      padding: 0 6px;
+      font-size: 8px;
+      z-index: 5;
+    }
+    .widget-preview.values-inside-left .preview-values { justify-content: flex-start; }
+    .widget-preview.values-inside-center .preview-values { justify-content: center; }
+    .widget-preview.values-inside-right .preview-values { justify-content: flex-end; }
+
+    .widget-preview.values-left,
+    .widget-preview.values-right {
+      flex-direction: row;
+      align-items: center;
+    }
+    .widget-preview.values-left .preview-values { order: -1; margin-right: 10px; margin-top: 0; }
+    .widget-preview.values-right .preview-values { order: 3; margin-left: 10px; margin-top: 0; }
+
+    /* Make bar container relative for inside values */
+    .preview-bar-container {
+      position: relative;
+    }
+
+    /* Theme-specific colors */
+    .theme-cyberpunk .preview-title { border: 2px solid #9d4edd; color: #fff; text-shadow: 0 0 10px #00fff2; box-shadow: 0 0 10px #00fff2; }
+    .theme-cyberpunk .preview-bar-border { background: #9d4edd; box-shadow: 0 0 15px #00fff2; }
+    .theme-cyberpunk .preview-bar-bg { background: #0d0221; }
+    .theme-cyberpunk .preview-bar-fill { background: linear-gradient(180deg, #00fff2, #4361ee); box-shadow: 0 0 10px #00fff2; }
+    .theme-cyberpunk .preview-values { color: #fff; text-shadow: 0 0 10px #00fff2; }
+
+    .theme-synthwave .preview-title { border: 2px solid #7b2cbf; color: #fff; text-shadow: 0 0 10px #ff6ec7; box-shadow: 0 0 10px #ff6ec7; }
+    .theme-synthwave .preview-bar-border { background: #7b2cbf; box-shadow: 0 0 15px #ff6ec7; }
+    .theme-synthwave .preview-bar-bg { background: #240046; }
+    .theme-synthwave .preview-bar-fill { background: linear-gradient(180deg, #ff6ec7, #ff9a3c); box-shadow: 0 0 10px #ff6ec7; }
+    .theme-synthwave .preview-values { color: #fff; text-shadow: 0 0 10px #ff6ec7; }
+
+    .theme-arcade .preview-title { border: 2px solid #ffffff; color: #fff; text-shadow: 0 0 10px #39ff14; box-shadow: 0 0 10px #39ff14; }
+    .theme-arcade .preview-bar-border { background: #ffffff; box-shadow: 0 0 15px #39ff14; }
+    .theme-arcade .preview-bar-bg { background: #000000; }
+    .theme-arcade .preview-bar-fill { background: linear-gradient(180deg, #39ff14, #32cd32); box-shadow: 0 0 10px #39ff14; }
+    .theme-arcade .preview-values { color: #fff; text-shadow: 0 0 10px #39ff14; }
+
+    .theme-bloodborne .preview-title { border: 2px solid #ffd700; color: #fff; text-shadow: 0 0 10px #ff0000; box-shadow: 0 0 10px #ff0000; }
+    .theme-bloodborne .preview-bar-border { background: #ffd700; box-shadow: 0 0 15px #ff0000; }
+    .theme-bloodborne .preview-bar-bg { background: #1a0a0a; }
+    .theme-bloodborne .preview-bar-fill { background: linear-gradient(180deg, #ff0000, #8b0000); box-shadow: 0 0 10px #ff0000; }
+    .theme-bloodborne .preview-values { color: #fff; text-shadow: 0 0 10px #ff0000; }
+
+    .theme-ocean .preview-title { border: 2px solid #20b2aa; color: #fff; text-shadow: 0 0 10px #00ced1; box-shadow: 0 0 10px #00ced1; }
+    .theme-ocean .preview-bar-border { background: #20b2aa; box-shadow: 0 0 15px #00ced1; }
+    .theme-ocean .preview-bar-bg { background: #0a1628; }
+    .theme-ocean .preview-bar-fill { background: linear-gradient(180deg, #00ced1, #0077be); box-shadow: 0 0 10px #00ced1; }
+    .theme-ocean .preview-values { color: #fff; text-shadow: 0 0 10px #00ced1; }
+
+    .theme-sakura .preview-title { border: 2px solid #ff69b4; color: #fff; text-shadow: 0 0 10px #ffb7c5; box-shadow: 0 0 10px #ffb7c5; }
+    .theme-sakura .preview-bar-border { background: #ff69b4; box-shadow: 0 0 15px #ffb7c5; }
+    .theme-sakura .preview-bar-bg { background: #2d132c; }
+    .theme-sakura .preview-bar-fill { background: linear-gradient(180deg, #ffb7c5, #ff69b4); box-shadow: 0 0 10px #ffb7c5; }
+    .theme-sakura .preview-values { color: #fff; text-shadow: 0 0 10px #ffb7c5; }
+
+    .theme-toxic .preview-title { border: 2px solid #ffff00; color: #fff; text-shadow: 0 0 10px #adff2f; box-shadow: 0 0 10px #adff2f; }
+    .theme-toxic .preview-bar-border { background: #ffff00; box-shadow: 0 0 15px #adff2f; }
+    .theme-toxic .preview-bar-bg { background: #0a1a0a; }
+    .theme-toxic .preview-bar-fill { background: linear-gradient(180deg, #adff2f, #228b22); box-shadow: 0 0 10px #adff2f; }
+    .theme-toxic .preview-values { color: #fff; text-shadow: 0 0 10px #adff2f; }
+
+    .theme-royal .preview-title { border: 2px solid #ffd700; color: #fff; text-shadow: 0 0 10px #ffd700; box-shadow: 0 0 10px #ffd700; }
+    .theme-royal .preview-bar-border { background: #ffd700; box-shadow: 0 0 15px #ffd700; }
+    .theme-royal .preview-bar-bg { background: #1a0a2e; }
+    .theme-royal .preview-bar-fill { background: linear-gradient(180deg, #ffd700, #9400d3); box-shadow: 0 0 10px #ffd700; }
+    .theme-royal .preview-values { color: #fff; text-shadow: 0 0 10px #ffd700; }
+
+    .theme-ice .preview-title { border: 2px solid #e0ffff; color: #fff; text-shadow: 0 0 10px #87ceeb; box-shadow: 0 0 10px #87ceeb; }
+    .theme-ice .preview-bar-border { background: #e0ffff; box-shadow: 0 0 15px #87ceeb; }
+    .theme-ice .preview-bar-bg { background: #0a0a1e; }
+    .theme-ice .preview-bar-fill { background: linear-gradient(180deg, #e0ffff, #87ceeb); box-shadow: 0 0 10px #87ceeb; }
+    .theme-ice .preview-values { color: #fff; text-shadow: 0 0 10px #87ceeb; }
+
+    .theme-fire .preview-title { border: 2px solid #ff4500; color: #fff; text-shadow: 0 0 10px #ff6600; box-shadow: 0 0 10px #ff6600; }
+    .theme-fire .preview-bar-border { background: #ff4500; box-shadow: 0 0 15px #ff6600; }
+    .theme-fire .preview-bar-bg { background: #1a0500; }
+    .theme-fire .preview-bar-fill { background: linear-gradient(180deg, #ffcc00, #ff4500); box-shadow: 0 0 10px #ff6600; }
+    .theme-fire .preview-values { color: #fff; text-shadow: 0 0 10px #ff6600; }
+
+    .theme-matrix .preview-title { border: 2px solid #00ff00; color: #00ff00; text-shadow: 0 0 10px #00ff00; box-shadow: 0 0 10px #00ff00; }
+    .theme-matrix .preview-bar-border { background: #00ff00; box-shadow: 0 0 15px #00ff00; }
+    .theme-matrix .preview-bar-bg { background: #000000; }
+    .theme-matrix .preview-bar-fill { background: linear-gradient(180deg, #00ff00, #003300); box-shadow: 0 0 10px #00ff00; }
+    .theme-matrix .preview-values { color: #00ff00; text-shadow: 0 0 10px #00ff00; }
+
+    .theme-sunset .preview-title { border: 2px solid #ff7f50; color: #fff; text-shadow: 0 0 10px #ffa07a; box-shadow: 0 0 10px #ffa07a; }
+    .theme-sunset .preview-bar-border { background: #ff7f50; box-shadow: 0 0 15px #ffa07a; }
+    .theme-sunset .preview-bar-bg { background: #2d1b30; }
+    .theme-sunset .preview-bar-fill { background: linear-gradient(180deg, #ffd700, #ff4500); box-shadow: 0 0 10px #ffa07a; }
+    .theme-sunset .preview-values { color: #fff; text-shadow: 0 0 10px #ffa07a; }
+
+    .theme-kawaii .preview-title { border: 2px solid #b19cd9; color: #fff; text-shadow: 0 0 10px #ffb6c1; box-shadow: 0 0 10px #ffb6c1; }
+    .theme-kawaii .preview-bar-border { background: #b19cd9; box-shadow: 0 0 15px #ffb6c1; }
+    .theme-kawaii .preview-bar-bg { background: #2a1f3d; }
+    .theme-kawaii .preview-bar-fill { background: linear-gradient(180deg, #ffb6c1, #98fb98); box-shadow: 0 0 10px #ffb6c1; }
+    .theme-kawaii .preview-values { color: #fff; text-shadow: 0 0 10px #ffb6c1; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #888;
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: #00fff2;
+    }
+
+    .color-info {
+      display: flex;
+      gap: 6px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .color-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/streamelements/widget/pixel-quest/" class="back-link">← Back to Widget</a>
+
+    <h1>Theme Preview</h1>
+    <p class="subtitle">Pre-rendered color themes for Pixel Quest goal bar</p>
+
+    <div class="settings-panel">
+      <h3>⚙️ Preview Settings</h3>
+
+      <div class="setting-group">
+        <label>Effect Duration</label>
+        <div style="display:flex;align-items:center;">
+          <input type="range" id="effectDuration" min="2" max="10" value="4">
+          <span class="range-value" id="durationValue">4s</span>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label>When Goal Exceeded</label>
+        <select id="overflowBehavior">
+          <option value="show">Show overflow (175/100)</option>
+          <option value="cap">Cap at goal (100/100)</option>
+          <option value="hide">Hide after completion</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label>Repeat Effect</label>
+        <select id="effectRepeat">
+          <option value="once">Only once (at 100%)</option>
+          <option value="every">Every addition after 100%</option>
+          <option value="milestones">At milestones (100%, 150%...)</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label>Title Position</label>
+        <select id="titlePosition">
+          <option value="top">Above Bar</option>
+          <option value="bottom">Below Bar</option>
+          <option value="left">Left of Bar</option>
+          <option value="right">Right of Bar</option>
+          <option value="hidden">Hidden</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label>Title Align To</label>
+        <select id="titleAlign">
+          <option value="widget">Whole widget (bar + icon)</option>
+          <option value="bar">Bar only</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label>Values Position</label>
+        <select id="valuesPosition">
+          <option value="below">Below bar</option>
+          <option value="above">Above bar</option>
+          <option value="inside-left">Inside bar (left)</option>
+          <option value="inside-center">Inside bar (center)</option>
+          <option value="inside-right">Inside bar (right)</option>
+          <option value="left">Left of bar</option>
+          <option value="right">Right of bar</option>
+          <option value="hidden">Hidden</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label>Bar Animation</label>
+        <select id="barAnimation">
+          <option value="none">None</option>
+          <option value="pulse">💫 Pulse glow</option>
+          <option value="flash">⚡ Flash</option>
+          <option value="shake">📳 Shake</option>
+          <option value="bounce">🎾 Bounce</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="themes-grid">
+      <!-- Cyberpunk -->
+      <div class="theme-card">
+        <div class="theme-name">Cyberpunk</div>
+        <div class="theme-vibe">Neon city vibes</div>
+        <div class="widget-preview theme-cyberpunk title-top values-below">
+          <div class="preview-title">DAILY QUEST</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #00fff2;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #4361ee;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #9d4edd;" title="Border"></div>
+          <div class="color-dot" style="background: #0d0221;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Synthwave -->
+      <div class="theme-card">
+        <div class="theme-name">Synthwave</div>
+        <div class="theme-vibe">80s retro sunset</div>
+        <div class="widget-preview theme-synthwave title-top values-below">
+          <div class="preview-title">SUB GOAL</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #ff6ec7;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #ff9a3c;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #7b2cbf;" title="Border"></div>
+          <div class="color-dot" style="background: #240046;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Arcade -->
+      <div class="theme-card">
+        <div class="theme-name">Arcade</div>
+        <div class="theme-vibe">Classic retro game</div>
+        <div class="widget-preview theme-arcade title-top values-below">
+          <div class="preview-title">HIGH SCORE</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #39ff14;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #32cd32;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #ffffff;" title="Border"></div>
+          <div class="color-dot" style="background: #000000;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Bloodborne -->
+      <div class="theme-card">
+        <div class="theme-name">Bloodborne</div>
+        <div class="theme-vibe">Dark gothic souls</div>
+        <div class="widget-preview theme-bloodborne title-top values-below">
+          <div class="preview-title">BOSS HUNT</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #ff0000;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #8b0000;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #ffd700;" title="Border"></div>
+          <div class="color-dot" style="background: #1a0a0a;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Ocean -->
+      <div class="theme-card">
+        <div class="theme-name">Ocean</div>
+        <div class="theme-vibe">Deep sea chill</div>
+        <div class="widget-preview theme-ocean title-top values-below">
+          <div class="preview-title">STREAM GOAL</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #00ced1;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #0077be;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #20b2aa;" title="Border"></div>
+          <div class="color-dot" style="background: #0a1628;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Sakura -->
+      <div class="theme-card">
+        <div class="theme-name">Sakura</div>
+        <div class="theme-vibe">Anime cherry blossom</div>
+        <div class="widget-preview theme-sakura title-top values-below">
+          <div class="preview-title">KAWAII GOAL</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #ffb7c5;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #ff69b4;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #ff69b4;" title="Border"></div>
+          <div class="color-dot" style="background: #2d132c;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Toxic -->
+      <div class="theme-card">
+        <div class="theme-name">Toxic</div>
+        <div class="theme-vibe">Radioactive gamer</div>
+        <div class="widget-preview theme-toxic title-top values-below">
+          <div class="preview-title">RAID BOSS</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #adff2f;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #228b22;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #ffff00;" title="Border"></div>
+          <div class="color-dot" style="background: #0a1a0a;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Royal -->
+      <div class="theme-card">
+        <div class="theme-name">Royal</div>
+        <div class="theme-vibe">Luxury kingdom</div>
+        <div class="widget-preview theme-royal title-top values-below">
+          <div class="preview-title">VIP GOAL</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #ffd700;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #9400d3;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #ffd700;" title="Border"></div>
+          <div class="color-dot" style="background: #1a0a2e;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Ice -->
+      <div class="theme-card">
+        <div class="theme-name">Ice</div>
+        <div class="theme-vibe">Frozen crystal</div>
+        <div class="widget-preview theme-ice title-top values-below">
+          <div class="preview-title">FROST QUEST</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #e0ffff;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #87ceeb;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #e0ffff;" title="Border"></div>
+          <div class="color-dot" style="background: #0a0a1e;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Fire -->
+      <div class="theme-card">
+        <div class="theme-name">Fire</div>
+        <div class="theme-vibe">Burning flames</div>
+        <div class="widget-preview theme-fire title-top values-below">
+          <div class="preview-title">HOT STREAK</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #ffcc00;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #ff4500;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #ff4500;" title="Border"></div>
+          <div class="color-dot" style="background: #1a0500;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Matrix -->
+      <div class="theme-card">
+        <div class="theme-name">Matrix</div>
+        <div class="theme-vibe">Digital hacker</div>
+        <div class="widget-preview theme-matrix title-top values-below">
+          <div class="preview-title">HACK GOAL</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #00ff00;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #003300;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #00ff00;" title="Border"></div>
+          <div class="color-dot" style="background: #000000;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Sunset -->
+      <div class="theme-card">
+        <div class="theme-name">Sunset</div>
+        <div class="theme-vibe">Golden hour vibes</div>
+        <div class="widget-preview theme-sunset title-top values-below">
+          <div class="preview-title">CHILL GOAL</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #ffd700;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #ff4500;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #ff7f50;" title="Border"></div>
+          <div class="color-dot" style="background: #2d1b30;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Kawaii -->
+      <div class="theme-card">
+        <div class="theme-name">Kawaii</div>
+        <div class="theme-vibe">Cute pastel dream</div>
+        <div class="widget-preview theme-kawaii title-top values-below">
+          <div class="preview-title">UWU GOAL</div>
+          <div class="preview-bar-container">
+            <div class="preview-bar-border">
+              <div class="preview-bar-bg">
+                <div class="preview-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-values">
+            <span>65</span>
+            <span class="preview-separator">/</span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-dot" style="background: #ffb6c1;" title="Fill 1"></div>
+          <div class="color-dot" style="background: #98fb98;" title="Fill 2"></div>
+          <div class="color-dot" style="background: #b19cd9;" title="Border"></div>
+          <div class="color-dot" style="background: #2a1f3d;" title="Background"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="demo-btn-small" onclick="demoAdd(this, 10)">+10</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 35)">+35</button>
+          <button class="demo-btn-small" onclick="demoAdd(this, 50)">+50</button>
+          <button class="demo-btn-small" onclick="demoReset(this)">↺ Reset</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Settings
+    let effectDuration = 4000;
+    const themeEffects = {
+      'theme-cyberpunk': 'glitch',
+      'theme-synthwave': 'neon',
+      'theme-arcade': 'levelup',
+      'theme-bloodborne': 'blood',
+      'theme-ocean': 'bubbles',
+      'theme-sakura': 'petals',
+      'theme-toxic': 'radioactive',
+      'theme-royal': 'sparkles',
+      'theme-ice': 'snowflakes',
+      'theme-fire': 'flames',
+      'theme-matrix': 'matrix',
+      'theme-sunset': 'sunrays',
+      'theme-kawaii': 'kawaii'
+    };
+
+    // Card state tracking
+    const cardStates = new Map();
+
+    function getCardState(card) {
+      if (!cardStates.has(card)) {
+        cardStates.set(card, {
+          progress: 65,
+          goal: 100,
+          wasComplete: false,
+          lastMilestone: 0
+        });
+      }
+      return cardStates.get(card);
+    }
+
+    // Settings event listeners
+    document.getElementById('effectDuration').addEventListener('input', (e) => {
+      effectDuration = e.target.value * 1000;
+      document.getElementById('durationValue').textContent = e.target.value + 's';
+    });
+
+    document.getElementById('titlePosition').addEventListener('change', (e) => {
+      const position = e.target.value;
+      document.querySelectorAll('.widget-preview').forEach(preview => {
+        preview.classList.remove('title-top', 'title-bottom', 'title-left', 'title-right', 'title-hidden');
+        preview.classList.add('title-' + position);
+      });
+    });
+
+    document.getElementById('valuesPosition').addEventListener('change', (e) => {
+      const position = e.target.value;
+      document.querySelectorAll('.widget-preview').forEach(preview => {
+        preview.classList.remove('values-below', 'values-above', 'values-inside-left', 'values-inside-center', 'values-inside-right', 'values-left', 'values-right', 'values-hidden');
+        preview.classList.add('values-' + position);
+      });
+    });
+
+    let barAnimation = 'none';
+    document.getElementById('barAnimation').addEventListener('change', (e) => {
+      barAnimation = e.target.value;
+    });
+
+    function animateBar(barContainer) {
+      if (barAnimation === 'none') return;
+      barContainer.classList.remove('bar-pulse', 'bar-flash', 'bar-shake', 'bar-bounce');
+      void barContainer.offsetWidth;
+      barContainer.classList.add('bar-' + barAnimation);
+      setTimeout(() => {
+        barContainer.classList.remove('bar-' + barAnimation);
+      }, 600);
+    }
+
+    // Demo functions
+    function demoAdd(btn, amount) {
+      const card = btn.closest('.theme-card');
+      const state = getCardState(card);
+      const prevProgress = state.progress;
+      state.progress += amount;
+
+      // Trigger bar animation
+      const barContainer = card.querySelector('.preview-bar-container');
+      if (barContainer) animateBar(barContainer);
+
+      updateCardDisplay(card, state, prevProgress);
+    }
+
+    function demoReset(btn) {
+      const card = btn.closest('.theme-card');
+      const state = getCardState(card);
+      state.progress = 0;
+      state.wasComplete = false;
+      state.lastMilestone = 0;
+      const preview = card.querySelector('.widget-preview');
+      preview.style.opacity = '1';
+      clearEffects(preview);
+      updateCardDisplay(card, state, 0);
+    }
+
+    function updateCardDisplay(card, state, prevProgress) {
+      const fill = card.querySelector('.preview-bar-fill');
+      const currentVal = card.querySelector('.preview-values span:first-child');
+      const goalVal = card.querySelector('.preview-values span:last-child');
+      const preview = card.querySelector('.widget-preview');
+
+      const overflowBehavior = document.getElementById('overflowBehavior').value;
+      const effectRepeat = document.getElementById('effectRepeat').value;
+
+      // Calculate percentage (capped at 100% for bar)
+      const pct = Math.min((state.progress / state.goal) * 100, 100);
+      fill.style.width = pct + '%';
+      goalVal.textContent = state.goal;
+
+      // Handle overflow display
+      let displayValue = state.progress;
+      const isComplete = state.progress >= state.goal;
+
+      if (isComplete && overflowBehavior === 'cap') {
+        displayValue = state.goal;
+      }
+      currentVal.textContent = displayValue;
+
+      // Show widget if not complete
+      if (!isComplete) {
+        preview.style.opacity = '1';
+      }
+
+      // Determine if celebration should play
+      let shouldCelebrate = false;
+      const progressIncreased = state.progress > prevProgress;
+
+      if (isComplete && progressIncreased) {
+        if (effectRepeat === 'once') {
+          if (!state.wasComplete) {
+            shouldCelebrate = true;
+          }
+        } else if (effectRepeat === 'every') {
+          shouldCelebrate = true;
+        } else if (effectRepeat === 'milestones') {
+          const currentPct = (state.progress / state.goal) * 100;
+          const currentMilestone = Math.floor(currentPct / 50) * 50;
+          if (currentMilestone > state.lastMilestone && currentMilestone >= 100) {
+            shouldCelebrate = true;
+            state.lastMilestone = currentMilestone;
+          }
+        }
+      }
+
+      // First time reaching goal - set initial milestone
+      if (isComplete && !state.wasComplete && effectRepeat === 'milestones') {
+        state.lastMilestone = 100;
+      }
+
+      if (shouldCelebrate) {
+        preview.classList.add('celebrating');
+        const themeClass = Array.from(preview.classList).find(c => c.startsWith('theme-'));
+        const effect = themeEffects[themeClass] || 'confetti';
+        triggerEffect(preview, effect);
+
+        // Hide after effect if option selected
+        if (overflowBehavior === 'hide') {
+          setTimeout(() => {
+            preview.style.opacity = '0';
+          }, effectDuration + 500);
+        }
+
+        // Remove celebrating class after effect
+        setTimeout(() => {
+          preview.classList.remove('celebrating', 'glitch-active');
+        }, effectDuration + 1000);
+      }
+
+      state.wasComplete = isComplete;
+    }
+
+    // Legacy demoFill for backward compatibility
+    function demoFill(btn) {
+      const card = btn.closest('.theme-card');
+      const state = getCardState(card);
+      if (state.progress >= state.goal) {
+        demoReset(btn);
+      } else {
+        demoAdd(btn, state.goal - state.progress);
+      }
+    }
+
+    function getEffectsBox(container) {
+      let box = container.querySelector('.effects-container');
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'effects-container';
+        box.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;';
+        container.style.position = 'relative';
+        container.appendChild(box);
+      }
+      return box;
+    }
+
+    function clearEffects(container) {
+      const box = container.querySelector('.effects-container');
+      if (box) box.innerHTML = '';
+      container.classList.remove('glitch-active');
+    }
+
+    function triggerEffect(container, effect) {
+      const box = getEffectsBox(container);
+      box.innerHTML = '';
+
+      switch(effect) {
+        case 'glitch': effectGlitch(container); break;
+        case 'neon': effectNeon(box); break;
+        case 'levelup': effectLevelUp(box); break;
+        case 'blood': effectBlood(box); break;
+        case 'bubbles': effectBubbles(box); break;
+        case 'petals': effectPetals(box); break;
+        case 'radioactive': effectRadioactive(box); break;
+        case 'sparkles': effectSparkles(box); break;
+        case 'snowflakes': effectSnowflakes(box); break;
+        case 'flames': effectFlames(box); break;
+        case 'matrix': effectMatrix(box); break;
+        case 'sunrays': effectSunrays(box); break;
+        case 'kawaii': effectKawaii(box); break;
+        default: effectConfetti(box);
+      }
+    }
+
+    function effectGlitch(container) {
+      container.classList.add('glitch-active');
+      setTimeout(() => container.classList.remove('glitch-active'), effectDuration);
+    }
+
+    function effectNeon(box) {
+      const colors = ['#ff6ec7', '#00ffff', '#ff00ff', '#ffff00'];
+      const waves = Math.ceil(effectDuration / 1000);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 5; i++) {
+            const p = document.createElement('div');
+            p.style.cssText = `position:absolute;left:50%;top:50%;width:50px;height:50px;border-radius:50%;border:3px solid ${colors[i%colors.length]};transform:translate(-50%,-50%);animation:neon-burst 1s ease forwards;animation-delay:${i*0.12}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 1500);
+          }
+        }, w * 900);
+      }
+    }
+
+    function effectLevelUp(box) {
+      const text = document.createElement('div');
+      text.textContent = 'LEVEL UP!';
+      text.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:12px;color:#39ff14;text-shadow:0 0 20px #39ff14;font-family:"Press Start 2P",monospace;animation:levelup-text 2s ease forwards;';
+      box.appendChild(text);
+      setTimeout(() => text.remove(), 2500);
+      effectConfetti(box);
+    }
+
+    function effectBlood(box) {
+      const waves = Math.ceil(effectDuration / 600);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 10; i++) {
+            const p = document.createElement('div');
+            p.style.cssText = `position:absolute;left:${Math.random()*100}%;top:0;width:4px;height:${15+Math.random()*15}px;background:linear-gradient(180deg,#ff0000,#8b0000);border-radius:2px;animation:blood-drip ${0.8+Math.random()*0.6}s ease forwards;animation-delay:${Math.random()*0.4}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 2000);
+          }
+        }, w * 500);
+      }
+    }
+
+    function effectBubbles(box) {
+      const waves = Math.ceil(effectDuration / 700);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 12; i++) {
+            const size = 8 + Math.random() * 18;
+            const p = document.createElement('div');
+            p.style.cssText = `position:absolute;left:${Math.random()*100}%;bottom:0;width:${size}px;height:${size}px;border-radius:50%;background:rgba(0,206,209,0.3);border:2px solid rgba(0,206,209,0.6);animation:bubble-rise ${1.5+Math.random()}s ease forwards;animation-delay:${Math.random()*0.6}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 3000);
+          }
+        }, w * 600);
+      }
+    }
+
+    function effectPetals(box) {
+      const petals = ['🌸', '🎀', '💮', '🌺'];
+      const waves = Math.ceil(effectDuration / 700);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 12; i++) {
+            const p = document.createElement('div');
+            p.textContent = petals[Math.floor(Math.random()*petals.length)];
+            p.style.cssText = `position:absolute;left:${Math.random()*100}%;font-size:${14+Math.random()*12}px;animation:petal-fall ${1.8+Math.random()*1.2}s ease forwards;animation-delay:${Math.random()*0.6}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 3500);
+          }
+        }, w * 600);
+      }
+    }
+
+    function effectRadioactive(box) {
+      const symbols = ['☢️', '⚠️', '💀', '🧪'];
+      const waves = Math.ceil(effectDuration / 800);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 6; i++) {
+            const p = document.createElement('div');
+            p.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+            p.style.cssText = `position:absolute;left:${15+Math.random()*70}%;top:${15+Math.random()*70}%;font-size:${18+Math.random()*10}px;animation:radioactive-pulse 1.3s ease forwards;animation-delay:${Math.random()*0.4}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 2000);
+          }
+        }, w * 700);
+      }
+    }
+
+    function effectSparkles(box) {
+      const sparkles = ['✨', '⭐', '💫', '👑', '💎'];
+      const waves = Math.ceil(effectDuration / 500);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 10; i++) {
+            const p = document.createElement('div');
+            p.textContent = sparkles[Math.floor(Math.random()*sparkles.length)];
+            p.style.cssText = `position:absolute;left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${16+Math.random()*14}px;animation:sparkle-twinkle ${0.8+Math.random()*0.5}s ease forwards;animation-delay:${Math.random()*0.3}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 1800);
+          }
+        }, w * 400);
+      }
+    }
+
+    function effectSnowflakes(box) {
+      const flakes = ['❄️', '❅', '❆', '✧', '⛄'];
+      const waves = Math.ceil(effectDuration / 600);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 12; i++) {
+            const p = document.createElement('div');
+            p.textContent = flakes[Math.floor(Math.random()*flakes.length)];
+            p.style.cssText = `position:absolute;left:${Math.random()*100}%;color:#e0ffff;text-shadow:0 0 10px #87ceeb;font-size:${12+Math.random()*12}px;animation:snow-fall ${1.5+Math.random()*1.5}s ease forwards;animation-delay:${Math.random()*0.6}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 3500);
+          }
+        }, w * 500);
+      }
+    }
+
+    function effectFlames(box) {
+      const flames = ['🔥', '🔥', '💥', '✨'];
+      const waves = Math.ceil(effectDuration / 400);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 10; i++) {
+            const p = document.createElement('div');
+            p.textContent = flames[Math.floor(Math.random()*flames.length)];
+            p.style.cssText = `position:absolute;left:${Math.random()*100}%;bottom:0;font-size:${18+Math.random()*16}px;animation:flame-rise ${0.8+Math.random()*0.6}s ease forwards;animation-delay:${Math.random()*0.3}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 2000);
+          }
+        }, w * 350);
+      }
+    }
+
+    function effectMatrix(box) {
+      const chars = 'アイウエオカキクケコ0123456789ABCDEF';
+      const waves = Math.ceil(effectDuration / 500);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 20; i++) {
+            const p = document.createElement('div');
+            p.textContent = chars[Math.floor(Math.random()*chars.length)];
+            p.style.cssText = `position:absolute;left:${Math.random()*100}%;font-family:monospace;color:#00ff00;text-shadow:0 0 10px #00ff00;font-size:14px;animation:matrix-rain ${1+Math.random()*0.8}s linear forwards;animation-delay:${Math.random()*0.4}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 2500);
+          }
+        }, w * 400);
+      }
+    }
+
+    function effectSunrays(box) {
+      const colors = ['#ffd700', '#ff7f50', '#ffa07a', '#ff4500'];
+      const waves = Math.ceil(effectDuration / 1200);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 12; i++) {
+            const p = document.createElement('div');
+            const color = colors[Math.floor(Math.random()*colors.length)];
+            p.style.cssText = `position:absolute;left:50%;top:50%;width:${80+Math.random()*40}px;height:3px;background:linear-gradient(90deg,transparent,${color},transparent);transform-origin:left center;transform:rotate(${i*30}deg);animation:sunray-expand 1.5s ease forwards;animation-delay:${i*0.06}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 2500);
+          }
+        }, w * 1000);
+      }
+    }
+
+    function effectKawaii(box) {
+      const kawaii = ['💖', '💕', '🦄', '🌈', '⭐', '✨', '🎀', '💗', '🌟', '🍭', '🧁', '💜', '🦋'];
+      const waves = Math.ceil(effectDuration / 600);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 15; i++) {
+            const p = document.createElement('div');
+            p.textContent = kawaii[Math.floor(Math.random()*kawaii.length)];
+            p.style.cssText = `position:absolute;left:${Math.random()*100}%;bottom:0;font-size:${16+Math.random()*18}px;animation:kawaii-float ${1.3+Math.random()}s ease forwards;animation-delay:${Math.random()*0.5}s;`;
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 3000);
+          }
+        }, w * 500);
+      }
+    }
+
+    function effectConfetti(box) {
+      const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+      const waves = Math.ceil(effectDuration / 800);
+      for (let w = 0; w < waves; w++) {
+        setTimeout(() => {
+          for (let i = 0; i < 20; i++) {
+            const p = document.createElement('div');
+            p.className = 'confetti-piece';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            p.style.animation = `confetti-fall ${1.2 + Math.random() * 0.8}s ease forwards`;
+            p.style.animationDelay = Math.random() * 0.4 + 's';
+            box.appendChild(p);
+            setTimeout(() => p.remove(), 2500);
+          }
+        }, w * 700);
+      }
+    }
+  </script>
+</body>
+</html>
