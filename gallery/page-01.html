@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Quest - StreamElements Goal Widget</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      width: 100%;
+      background: linear-gradient(135deg, #0d0221 0%, #1a0a2e 50%, #2d1b4e 100%);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body {
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated grid background - full screen */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        linear-gradient(rgba(0, 255, 242, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 242, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    /* Glow orbs - full screen */
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .glow-orb-1 {
+      width: 400px;
+      height: 400px;
+      background: #00fff2;
+      top: -100px;
+      left: -100px;
+    }
+
+    .glow-orb-2 {
+      width: 350px;
+      height: 350px;
+      background: #9d4edd;
+      bottom: -100px;
+      right: -100px;
+    }
+
+    .glow-orb-3 {
+      width: 300px;
+      height: 300px;
+      background: #4361ee;
+      top: 50%;
+      right: 10%;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      padding: 50px 60px;
+      width: 1200px;
+      height: 1600px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #00fff2, #4361ee);
+      color: #0d0221;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 30px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 48px;
+      color: #fff;
+      text-shadow: 0 0 30px #00fff2, 0 0 60px #4361ee;
+      margin-bottom: 15px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #999;
+    }
+
+    /* Themes Grid - 2 columns, 4 rows */
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 45px 50px;
+    }
+
+    /* Individual widget - no card frame */
+    .widget {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .widget-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+
+    .widget-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      padding: 5px 12px;
+      display: inline-block;
+    }
+
+    .widget-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .widget-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .widget-bar {
+      flex: 1;
+      height: 24px;
+      padding: 3px;
+    }
+
+    .widget-bar-bg {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .widget-bar-fill {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 4px;
+    }
+
+    .widget-bar-ball {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .widget-values {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: #fff;
+      margin-top: 8px;
+    }
+
+    /* Theme: Cyberpunk */
+    .theme-cyberpunk .widget-label { color: #00fff2; }
+    .theme-cyberpunk .widget-title { background: rgba(13,2,33,0.8); border: 2px solid #9d4edd; text-shadow: 0 0 8px #00fff2; box-shadow: 0 0 10px #00fff2; }
+    .theme-cyberpunk .widget-icon { filter: drop-shadow(0 0 8px #00fff2); }
+    .theme-cyberpunk .widget-bar { background: #9d4edd; box-shadow: 0 0 12px #00fff2; }
+    .theme-cyberpunk .widget-bar-bg { background: #0d0221; }
+    .theme-cyberpunk .widget-bar-fill { width: 75%; background: linear-gradient(90deg, #00fff2, #4361ee, #9d4edd); }
+    .theme-cyberpunk .widget-bar-ball { background: #0d0221; }
+    .theme-cyberpunk .widget-values { text-shadow: 0 0 8px #00fff2; }
+
+    /* Theme: Fire */
+    .theme-fire .widget-label { color: #ff6600; }
+    .theme-fire .widget-title { background: rgba(26,5,0,0.8); border: 2px solid #ff4500; text-shadow: 0 0 8px #ff6600; box-shadow: 0 0 10px #ff6600; }
+    .theme-fire .widget-icon { filter: drop-shadow(0 0 8px #ff6600); }
+    .theme-fire .widget-bar { background: #ff4500; box-shadow: 0 0 12px #ff6600; }
+    .theme-fire .widget-bar-bg { background: #1a0500; }
+    .theme-fire .widget-bar-fill { width: 60%; background: linear-gradient(90deg, #ffcc00, #ff4500, #ff4500); }
+    .theme-fire .widget-bar-ball { background: #1a0500; }
+    .theme-fire .widget-values { text-shadow: 0 0 8px #ff6600; }
+
+    /* Theme: Sakura */
+    .theme-sakura .widget-label { color: #ffb7c5; }
+    .theme-sakura .widget-title { background: rgba(45,19,44,0.8); border: 2px solid #ff69b4; text-shadow: 0 0 8px #ffb7c5; box-shadow: 0 0 10px #ffb7c5; }
+    .theme-sakura .widget-icon { filter: drop-shadow(0 0 8px #ffb7c5); }
+    .theme-sakura .widget-bar { background: #ff69b4; box-shadow: 0 0 12px #ffb7c5; }
+    .theme-sakura .widget-bar-bg { background: #2d132c; }
+    .theme-sakura .widget-bar-fill { width: 85%; background: linear-gradient(90deg, #ffb7c5, #ff69b4, #ff69b4); }
+    .theme-sakura .widget-bar-ball { background: #2d132c; }
+    .theme-sakura .widget-values { text-shadow: 0 0 8px #ffb7c5; }
+
+    /* Theme: Matrix */
+    .theme-matrix .widget-label { color: #00ff00; }
+    .theme-matrix .widget-title { background: rgba(0,0,0,0.8); border: 2px solid #00ff00; text-shadow: 0 0 8px #00ff00; box-shadow: 0 0 10px #00ff00; }
+    .theme-matrix .widget-icon { filter: drop-shadow(0 0 8px #00ff00); }
+    .theme-matrix .widget-bar { background: #00ff00; box-shadow: 0 0 12px #00ff00; }
+    .theme-matrix .widget-bar-bg { background: #000000; }
+    .theme-matrix .widget-bar-fill { width: 45%; background: linear-gradient(90deg, #00ff00, #003300, #00ff00); }
+    .theme-matrix .widget-bar-ball { background: #000000; }
+    .theme-matrix .widget-values { text-shadow: 0 0 8px #00ff00; }
+
+    /* Theme: Ocean */
+    .theme-ocean .widget-label { color: #00ced1; }
+    .theme-ocean .widget-title { background: rgba(10,22,40,0.8); border: 2px solid #20b2aa; text-shadow: 0 0 8px #00ced1; box-shadow: 0 0 10px #00ced1; }
+    .theme-ocean .widget-icon { filter: drop-shadow(0 0 8px #00ced1); }
+    .theme-ocean .widget-bar { background: #20b2aa; box-shadow: 0 0 12px #00ced1; }
+    .theme-ocean .widget-bar-bg { background: #0a1628; }
+    .theme-ocean .widget-bar-fill { width: 65%; background: linear-gradient(90deg, #00ced1, #0077be, #20b2aa); }
+    .theme-ocean .widget-bar-ball { background: #0a1628; }
+    .theme-ocean .widget-values { text-shadow: 0 0 8px #00ced1; }
+
+    /* Theme: Royal */
+    .theme-royal .widget-label { color: #ffd700; }
+    .theme-royal .widget-title { background: rgba(26,10,46,0.8); border: 2px solid #ffd700; text-shadow: 0 0 8px #ffd700; box-shadow: 0 0 10px #ffd700; }
+    .theme-royal .widget-icon { filter: drop-shadow(0 0 8px #ffd700); }
+    .theme-royal .widget-bar { background: #ffd700; box-shadow: 0 0 12px #ffd700; }
+    .theme-royal .widget-bar-bg { background: #1a0a2e; }
+    .theme-royal .widget-bar-fill { width: 80%; background: linear-gradient(90deg, #ffd700, #9400d3, #ffd700); }
+    .theme-royal .widget-bar-ball { background: #1a0a2e; }
+    .theme-royal .widget-values { text-shadow: 0 0 8px #ffd700; }
+
+    /* Theme: Ice */
+    .theme-ice .widget-label { color: #87ceeb; }
+    .theme-ice .widget-title { background: rgba(10,10,30,0.8); border: 2px solid #e0ffff; text-shadow: 0 0 8px #87ceeb; box-shadow: 0 0 10px #87ceeb; }
+    .theme-ice .widget-icon { filter: drop-shadow(0 0 8px #87ceeb); }
+    .theme-ice .widget-bar { background: #e0ffff; box-shadow: 0 0 12px #87ceeb; }
+    .theme-ice .widget-bar-bg { background: #0a0a1e; }
+    .theme-ice .widget-bar-fill { width: 55%; background: linear-gradient(90deg, #e0ffff, #87ceeb, #e0ffff); }
+    .theme-ice .widget-bar-ball { background: #0a0a1e; }
+    .theme-ice .widget-values { text-shadow: 0 0 8px #87ceeb; }
+
+    /* Theme: Toxic */
+    .theme-toxic .widget-label { color: #adff2f; }
+    .theme-toxic .widget-title { background: rgba(10,26,10,0.8); border: 2px solid #ffff00; text-shadow: 0 0 8px #adff2f; box-shadow: 0 0 10px #adff2f; }
+    .theme-toxic .widget-icon { filter: drop-shadow(0 0 8px #adff2f); }
+    .theme-toxic .widget-bar { background: #ffff00; box-shadow: 0 0 12px #adff2f; }
+    .theme-toxic .widget-bar-bg { background: #0a1a0a; }
+    .theme-toxic .widget-bar-fill { width: 70%; background: linear-gradient(90deg, #adff2f, #228b22, #ffff00); }
+    .theme-toxic .widget-bar-ball { background: #0a1a0a; }
+    .theme-toxic .widget-values { text-shadow: 0 0 8px #adff2f; }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .features {
+      display: flex;
+      gap: 15px;
+    }
+
+    .feature {
+      background: rgba(0, 255, 242, 0.1);
+      border: 1px solid rgba(0, 255, 242, 0.3);
+      border-radius: 8px;
+      padding: 10px 18px;
+      color: #00fff2;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .author {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 12px;
+    }
+
+    .author span {
+      color: #00fff2;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+  <div class="glow-orb glow-orb-3"></div>
+
+  <div class="content">
+    <div class="header">
+      <div class="badge">StreamElements Custom Widget</div>
+      <h1 class="title">PIXEL QUEST</h1>
+      <p class="subtitle">Animated Goal Progress Bar for Twitch & YouTube</p>
+    </div>
+
+    <div class="themes-grid">
+      <!-- Row 1 -->
+      <div class="widget theme-cyberpunk">
+        <div class="widget-label">Cyberpunk</div>
+        <div class="widget-title">DAILY QUEST</div>
+        <div class="widget-row">
+          <div class="widget-icon">⭐</div>
+          <div class="widget-bar"><div class="widget-bar-bg"><div class="widget-bar-fill"><div class="widget-bar-ball"></div></div></div></div>
+        </div>
+        <div class="widget-values">75 | 100</div>
+      </div>
+
+      <div class="widget theme-fire">
+        <div class="widget-label">Fire</div>
+        <div class="widget-title">SUB GOAL</div>
+        <div class="widget-row">
+          <div class="widget-icon">🔥</div>
+          <div class="widget-bar"><div class="widget-bar-bg"><div class="widget-bar-fill"><div class="widget-bar-ball"></div></div></div></div>
+        </div>
+        <div class="widget-values">60 | 100</div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="widget theme-sakura">
+        <div class="widget-label">Sakura</div>
+        <div class="widget-title">DONATION GOAL</div>
+        <div class="widget-row">
+          <div class="widget-icon">🌸</div>
+          <div class="widget-bar"><div class="widget-bar-bg"><div class="widget-bar-fill"><div class="widget-bar-ball"></div></div></div></div>
+        </div>
+        <div class="widget-values">$85 | $100</div>
+      </div>
+
+      <div class="widget theme-matrix">
+        <div class="widget-label">Matrix</div>
+        <div class="widget-title">FOLLOWER GOAL</div>
+        <div class="widget-row">
+          <div class="widget-icon">💀</div>
+          <div class="widget-bar"><div class="widget-bar-bg"><div class="widget-bar-fill"><div class="widget-bar-ball"></div></div></div></div>
+        </div>
+        <div class="widget-values">45 | 100</div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="widget theme-ocean">
+        <div class="widget-label">Ocean</div>
+        <div class="widget-title">BITS GOAL</div>
+        <div class="widget-row">
+          <div class="widget-icon">🌊</div>
+          <div class="widget-bar"><div class="widget-bar-bg"><div class="widget-bar-fill"><div class="widget-bar-ball"></div></div></div></div>
+        </div>
+        <div class="widget-values">650 | 1000</div>
+      </div>
+
+      <div class="widget theme-royal">
+        <div class="widget-label">Royal</div>
+        <div class="widget-title">VIP GOAL</div>
+        <div class="widget-row">
+          <div class="widget-icon">👑</div>
+          <div class="widget-bar"><div class="widget-bar-bg"><div class="widget-bar-fill"><div class="widget-bar-ball"></div></div></div></div>
+        </div>
+        <div class="widget-values">80 | 100</div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="widget theme-ice">
+        <div class="widget-label">Ice</div>
+        <div class="widget-title">WINTER QUEST</div>
+        <div class="widget-row">
+          <div class="widget-icon">❄️</div>
+          <div class="widget-bar"><div class="widget-bar-bg"><div class="widget-bar-fill"><div class="widget-bar-ball"></div></div></div></div>
+        </div>
+        <div class="widget-values">55 | 100</div>
+      </div>
+
+      <div class="widget theme-toxic">
+        <div class="widget-label">Toxic</div>
+        <div class="widget-title">RAID GOAL</div>
+        <div class="widget-row">
+          <div class="widget-icon">☢️</div>
+          <div class="widget-bar"><div class="widget-bar-bg"><div class="widget-bar-fill"><div class="widget-bar-ball"></div></div></div></div>
+        </div>
+        <div class="widget-values">70 | 100</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="features">
+        <div class="feature">13 Themes</div>
+        <div class="feature">15 Effects</div>
+        <div class="feature">30 Icons</div>
+        <div class="feature">Chat Commands</div>
+      </div>
+      <div class="author">by <span>AnimationBlondie</span></div>
+    </div>
+  </div>
+</body>
+</html>

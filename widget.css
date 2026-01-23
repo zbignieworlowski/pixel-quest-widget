@@ -111,6 +111,14 @@ body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--blondie-glow);
+}
+
+.blondie-icon svg {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .blondie-icon-pulse {
@@ -269,12 +277,12 @@ body {
 /* Effects Container */
 #blondie-effects {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: -100px;
+  left: -100px;
+  right: -100px;
+  bottom: -100px;
   pointer-events: none;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .blondie-particle {
@@ -285,7 +293,8 @@ body {
 /* CONFETTI */
 @keyframes blondie-confetti {
   0% { opacity: 1; transform: translateY(-20px) rotate(0deg); }
-  100% { opacity: 0; transform: translateY(120px) rotate(720deg); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(250px) rotate(720deg); }
 }
 
 /* GLITCH */

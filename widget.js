@@ -26,11 +26,34 @@ var blondieThemes = {
   kawaii: { fill1: '#ffb6c1', fill2: '#98fb98', fill3: '#b19cd9', border: '#b19cd9', bg: '#2a1f3d', glow: '#ffb6c1', effect: 'kawaii' }
 };
 
-var blondieIcons = {
-  star: '⭐', heart: '❤️', diamond: '💎', trophy: '🏆', coin: '🪙',
-  fire: '🔥', bolt: '⚡', crown: '👑', sword: '⚔️', shield: '🛡️',
-  potion: '🧪', gem: '💠', skull: '💀', flower: '🌸', music: '🎵'
+// Emoji icons
+var blondieIconsEmoji = {
+  'emoji-star': '⭐', 'emoji-heart': '❤️', 'emoji-diamond': '💎', 'emoji-trophy': '🏆', 'emoji-coin': '🪙',
+  'emoji-fire': '🔥', 'emoji-bolt': '⚡', 'emoji-crown': '👑', 'emoji-sword': '⚔️', 'emoji-shield': '🛡️',
+  'emoji-potion': '🧪', 'emoji-gem': '💠', 'emoji-skull': '💀', 'emoji-flower': '🌸', 'emoji-music': '🎵'
 };
+
+// Pixel SVG icons
+var blondieIconsSVG = {
+  'pixel-star': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0h1v3h-1zM8 13h1v3h-1zM0 7h3v1H0zM13 7h3v1h-1zM3 3h1v1H3zM12 3h1v1h-1zM3 12h1v1H3zM12 12h1v1h-1zM5 4h1v1H5zM10 4h1v1h-1zM4 5h1v1H4zM11 5h1v1h-1zM4 6h8v1H4zM3 7h10v1H3zM4 8h8v1H4zM5 9h6v1H5zM5 10h2v1H5zM9 10h2v1H9zM4 11h2v1H4zM10 11h2v1h-2z"/></svg>',
+  'pixel-heart': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 4h3v1H2zM11 4h3v1h-3zM1 5h2v1H1zM5 5h2v1H5zM9 5h2v1H9zM13 5h2v1h-2zM1 6h1v1H1zM7 6h2v1H7zM14 6h1v1h-1zM1 7h1v4H1zM14 7h1v4h-1zM2 7h12v1H2zM2 8h12v1H2zM2 9h12v1H2zM2 10h12v1H2zM2 11h12v1H2zM3 12h10v1H3zM4 13h8v1H4zM5 14h6v1H5zM6 15h4v1H6z"/></svg>',
+  'pixel-diamond': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M6 1h4v1H6zM4 2h2v1H4zM10 2h2v1h-2zM3 3h2v1H3zM11 3h2v1h-2zM2 4h2v1H2zM12 4h2v1h-2zM1 5h2v1H1zM13 5h2v1h-2zM0 6h2v1H0zM14 6h2v1h-2zM0 7h1v1H0zM15 7h1v1h-1zM1 8h1v1H1zM14 8h1v1h-1zM2 9h1v1H2zM13 9h1v1h-1zM3 10h1v1H3zM12 10h1v1h-1zM4 11h1v1H4zM11 11h1v1h-1zM5 12h1v1H5zM10 12h1v1h-1zM6 13h1v1H6zM9 13h1v1H9zM7 14h2v1H7z"/></svg>',
+  'pixel-trophy': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 1h8v1H4zM3 2h10v1H3zM3 3h1v3H3zM12 3h1v3h-1zM1 3h2v1H1zM13 3h2v1h-2zM0 4h1v2H0zM15 4h1v2h-1zM1 6h2v1H1zM13 6h2v1h-2zM2 7h3v1H2zM11 7h3v1h-3zM4 3h8v5H4zM5 8h6v1H5zM6 9h4v1H6zM7 10h2v3H7zM5 13h6v1H5zM4 14h8v1H4z"/></svg>',
+  'pixel-coin': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M5 1h6v1H5zM3 2h2v1H3zM11 2h2v1h-2zM2 3h1v1H2zM13 3h1v1h-1zM1 4h1v1H1zM14 4h1v1h-1zM1 5h1v6H1zM14 5h1v6h-1zM2 11h1v1H2zM13 11h1v1h-1zM3 12h2v1H3zM11 12h2v1h-2zM5 13h6v1H5zM7 4h2v1H7zM6 5h1v1H6zM7 5h2v1H7zM7 6h2v1H7zM7 7h2v1H7zM8 8h1v1H8zM7 9h2v1H7z"/></svg>',
+  'pixel-fire': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7 0h2v1H7zM6 1h1v1H6zM8 1h1v1H8zM5 2h1v1H5zM9 2h2v1H9zM5 3h1v1H5zM10 3h1v1h-1zM4 4h1v1H4zM10 4h1v2h-1zM4 5h1v2H4zM11 5h1v1h-1zM7 5h1v1H7zM6 6h1v1H6zM11 6h1v2h-1zM3 7h1v2H3zM5 7h2v1H5zM12 8h1v2h-1zM3 9h1v2H3zM4 11h1v1H4zM11 11h1v1h-1zM5 12h2v1H5zM9 12h2v1H9zM6 13h4v1H6z"/></svg>',
+  'pixel-bolt': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0h3v1H8zM7 1h2v1H7zM6 2h2v1H6zM5 3h2v1H5zM4 4h2v1H4zM3 5h2v1H3zM2 6h6v1H2zM6 7h2v1H6zM7 8h2v1H7zM8 9h2v1H8zM9 10h2v1H9zM10 11h2v1h-2zM11 12h2v1h-2zM12 13h2v1h-2zM13 14h2v1h-2z"/></svg>',
+  'pixel-crown': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 3h1v1H2zM7 3h2v1H7zM13 3h1v1h-1zM2 4h1v1H2zM7 4h2v1H7zM13 4h1v1h-1zM2 5h1v1H2zM5 5h1v1H5zM7 5h2v1H7zM10 5h1v1h-1zM13 5h1v1h-1zM2 6h3v1H2zM6 6h4v1H6zM11 6h3v1h-3zM2 7h12v1H2zM2 8h12v1H2zM2 9h12v1H2zM2 10h12v1H2zM3 11h10v1H3z"/></svg>',
+  'pixel-sword': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M12 0h2v1h-2zM11 1h2v1h-2zM10 2h2v1h-2zM9 3h2v1H9zM8 4h2v1H8zM7 5h2v1H7zM6 6h2v1H6zM2 7h1v2H2zM5 7h2v1H5zM3 8h1v1H3zM4 8h2v1H4zM1 9h2v1H1zM3 9h2v1H3zM0 10h2v1H0zM2 10h1v1H2zM0 11h1v1H0z"/></svg>',
+  'pixel-shield': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 1h10v1H3zM2 2h12v1H2zM2 3h12v1H2zM2 4h12v1H2zM2 5h12v1H2zM2 6h12v1H2zM3 7h10v1H3zM3 8h10v1H3zM4 9h8v1H4zM4 10h8v1H4zM5 11h6v1H5zM6 12h4v1H6zM7 13h2v1H7z"/></svg>',
+  'pixel-potion': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M6 0h4v1H6zM5 1h1v1H5zM10 1h1v1h-1zM5 2h1v3H5zM10 2h1v3h-1zM6 2h4v1H6zM4 5h2v1H4zM10 5h2v1h-2zM3 6h2v1H3zM11 6h2v1h-2zM2 7h2v1H2zM12 7h2v1h-2zM2 8h12v1H2zM2 9h12v1H2zM2 10h12v1H2zM3 11h10v1H3zM4 12h8v1H4zM5 13h6v1H5z"/></svg>',
+  'pixel-gem': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2h8v1H4zM2 3h3v1H2zM6 3h4v1H6zM11 3h3v1h-3zM1 4h4v1H1zM6 4h4v1H6zM11 4h4v1h-4zM2 5h4v1H2zM6 5h4v1H6zM10 5h4v1h-4zM3 6h3v1H3zM6 6h4v1H6zM10 6h3v1h-3zM4 7h2v1H4zM6 7h4v1H6zM10 7h2v1h-2zM5 8h2v1H5zM7 8h2v1H7zM9 8h2v1H9zM6 9h4v1H6zM7 10h2v1H7z"/></svg>',
+  'pixel-skull': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M5 1h6v1H5zM3 2h2v1H3zM11 2h2v1h-2zM2 3h2v1H2zM12 3h2v1h-2zM2 4h1v1H2zM13 4h1v1h-1zM1 5h2v1H1zM13 5h2v1h-2zM1 6h2v1H1zM5 6h2v1H5zM9 6h2v1H9zM13 6h2v1h-2zM1 7h2v1H1zM5 7h2v1H5zM9 7h2v1H9zM13 7h2v1h-2zM2 8h1v1H2zM13 8h1v1h-1zM2 9h3v1H2zM6 9h4v1H6zM11 9h3v1h-3zM3 10h10v1H3zM4 11h2v1H4zM7 11h2v1H7zM10 11h2v1h-2zM4 12h2v1H4zM7 12h2v1H7zM10 12h2v1h-2z"/></svg>',
+  'pixel-flower': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7 0h2v1H7zM6 1h1v1H6zM9 1h1v1H9zM6 2h4v1H6zM2 4h2v1H2zM6 4h4v1H6zM12 4h2v1h-2zM1 5h2v1H1zM5 5h1v1H5zM10 5h1v1h-1zM13 5h2v1h-2zM1 6h2v1H1zM5 6h6v1H5zM13 6h2v1h-2zM2 7h2v1H2zM5 7h6v1H5zM12 7h2v1h-2zM6 8h4v1H6zM7 9h2v3H7zM6 12h4v1H6zM7 13h2v2H7z"/></svg>',
+  'pixel-music': '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M6 1h6v1H6zM5 2h1v1H5zM11 2h1v9h-1zM5 3h1v8H5zM12 9h2v1h-2zM11 10h1v1h-1zM13 10h1v1h-1zM11 11h3v1h-3zM12 12h1v1h-1zM6 10h2v1H6zM5 11h1v1H5zM7 11h1v1H7zM5 12h3v1H5zM6 13h1v1H6z"/></svg>'
+};
+
+// Combined icons object
+var blondieIcons = Object.assign({}, blondieIconsEmoji, blondieIconsSVG);
 
 window.addEventListener('onWidgetLoad', function(obj) {
   console.log('Pixel Quest v2 loaded', obj);
@@ -295,7 +318,18 @@ function blondieApplyStyles() {
         iconEl.appendChild(img);
         iconEl.style.display = 'flex';
       } else if (blondieIcons[blondieFieldData.iconType]) {
-        iconEl.textContent = blondieIcons[blondieFieldData.iconType];
+        var iconContent = blondieIcons[blondieFieldData.iconType];
+        var isPixelIcon = blondieFieldData.iconType.indexOf('pixel-') === 0;
+
+        if (isPixelIcon) {
+          iconEl.innerHTML = iconContent;
+          // Use custom color if set, otherwise use glow color
+          var iconColor = blondieFieldData.iconColor || 'var(--blondie-glow)';
+          iconEl.style.color = iconColor;
+        } else {
+          // Emoji icon
+          iconEl.textContent = iconContent;
+        }
         iconEl.style.display = 'flex';
       }
     }
@@ -476,10 +510,11 @@ function blondieEffectConfetti(box) {
       setTimeout(function() {
         for (var i = 0; i < 20; i++) {
           var p = document.createElement('div');
+          var size = 10 + Math.random() * 8;
           p.className = 'blondie-particle';
-          p.style.cssText = 'left:' + (Math.random()*100) + '%;width:8px;height:8px;background:' + colors[Math.floor(Math.random()*colors.length)] + ';animation:blondie-confetti ' + (1.2+Math.random()*0.8) + 's ease forwards;animation-delay:' + (Math.random()*0.4) + 's;';
+          p.style.cssText = 'left:' + (Math.random()*100) + '%;width:' + size + 'px;height:' + size + 'px;background:' + colors[Math.floor(Math.random()*colors.length)] + ';animation:blondie-confetti ' + (1.5+Math.random()*1) + 's ease forwards;animation-delay:' + (Math.random()*0.4) + 's;';
           box.appendChild(p);
-          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 2500, p);
+          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 3500, p);
         }
       }, wave * 700);
     })(w);
@@ -487,8 +522,11 @@ function blondieEffectConfetti(box) {
 }
 
 function blondieEffectGlitch(container) {
-  container.classList.add('blondie-glitch-active');
-  setTimeout(function() { container.classList.remove('blondie-glitch-active'); }, blondieEffectDuration);
+  var barContainer = document.getElementById('blondie-bar-container');
+  if (barContainer) {
+    barContainer.classList.add('blondie-glitch-active');
+    setTimeout(function() { barContainer.classList.remove('blondie-glitch-active'); }, blondieEffectDuration);
+  }
 }
 
 function blondieEffectNeon(box) {
