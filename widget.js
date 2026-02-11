@@ -11,26 +11,28 @@ var blondieLastProgress = 0;
 var blondieEffectDuration = 4000;
 
 var blondieThemes = {
-  cyberpunk: { fill1: '#00fff2', fill2: '#4361ee', fill3: '#9d4edd', border: '#9d4edd', bg: '#0d0221', glow: '#00fff2', effect: 'glitch' },
-  synthwave: { fill1: '#ff6ec7', fill2: '#ff9a3c', fill3: '#7b2cbf', border: '#7b2cbf', bg: '#240046', glow: '#ff6ec7', effect: 'neon' },
-  arcade: { fill1: '#39ff14', fill2: '#32cd32', fill3: '#ffffff', border: '#ffffff', bg: '#000000', glow: '#39ff14', effect: 'levelup' },
-  bloodborne: { fill1: '#ff0000', fill2: '#8b0000', fill3: '#ffd700', border: '#ffd700', bg: '#1a0a0a', glow: '#ff0000', effect: 'blood' },
-  ocean: { fill1: '#00ced1', fill2: '#0077be', fill3: '#20b2aa', border: '#20b2aa', bg: '#0a1628', glow: '#00ced1', effect: 'bubbles' },
-  sakura: { fill1: '#ffb7c5', fill2: '#ff69b4', fill3: '#ff69b4', border: '#ff69b4', bg: '#2d132c', glow: '#ffb7c5', effect: 'petals' },
-  toxic: { fill1: '#adff2f', fill2: '#228b22', fill3: '#ffff00', border: '#ffff00', bg: '#0a1a0a', glow: '#adff2f', effect: 'radioactive' },
-  royal: { fill1: '#ffd700', fill2: '#9400d3', fill3: '#ffd700', border: '#ffd700', bg: '#1a0a2e', glow: '#ffd700', effect: 'sparkles' },
-  ice: { fill1: '#e0ffff', fill2: '#87ceeb', fill3: '#e0ffff', border: '#e0ffff', bg: '#0a0a1e', glow: '#87ceeb', effect: 'snowflakes' },
-  fire: { fill1: '#ffcc00', fill2: '#ff4500', fill3: '#ff4500', border: '#ff4500', bg: '#1a0500', glow: '#ff6600', effect: 'flames' },
-  matrix: { fill1: '#00ff00', fill2: '#003300', fill3: '#00ff00', border: '#00ff00', bg: '#000000', glow: '#00ff00', effect: 'matrix' },
-  sunset: { fill1: '#ffd700', fill2: '#ff4500', fill3: '#ff7f50', border: '#ff7f50', bg: '#2d1b30', glow: '#ffa07a', effect: 'sunrays' },
-  kawaii: { fill1: '#ffb6c1', fill2: '#98fb98', fill3: '#b19cd9', border: '#b19cd9', bg: '#2a1f3d', glow: '#ffb6c1', effect: 'kawaii' }
+  cyberpunk: { fill1: '#00fff2', fill2: '#4361ee', fill3: '#9d4edd', border: '#9d4edd', bg: '#0d0221', glow: '#00fff2', effect: 'glitch', icon: 'emoji-star' },
+  synthwave: { fill1: '#ff6ec7', fill2: '#ff9a3c', fill3: '#7b2cbf', border: '#7b2cbf', bg: '#240046', glow: '#ff6ec7', effect: 'neon', icon: 'emoji-gamepad' },
+  arcade: { fill1: '#39ff14', fill2: '#32cd32', fill3: '#ffffff', border: '#ffffff', bg: '#000000', glow: '#39ff14', effect: 'levelup', icon: 'emoji-alien' },
+  bloodborne: { fill1: '#ff0000', fill2: '#8b0000', fill3: '#ffd700', border: '#ffd700', bg: '#1a0a0a', glow: '#ff0000', effect: 'blood', icon: 'emoji-blood' },
+  ocean: { fill1: '#00ced1', fill2: '#0077be', fill3: '#20b2aa', border: '#20b2aa', bg: '#0a1628', glow: '#00ced1', effect: 'bubbles', icon: 'emoji-wave' },
+  sakura: { fill1: '#ffb7c5', fill2: '#ff69b4', fill3: '#ff69b4', border: '#ff69b4', bg: '#2d132c', glow: '#ffb7c5', effect: 'petals', icon: 'emoji-flower' },
+  toxic: { fill1: '#adff2f', fill2: '#228b22', fill3: '#ffff00', border: '#ffff00', bg: '#0a1a0a', glow: '#adff2f', effect: 'radioactive', icon: 'emoji-radioactive' },
+  royal: { fill1: '#ffd700', fill2: '#9400d3', fill3: '#ffd700', border: '#ffd700', bg: '#1a0a2e', glow: '#ffd700', effect: 'sparkles', icon: 'emoji-crown' },
+  ice: { fill1: '#e0ffff', fill2: '#87ceeb', fill3: '#e0ffff', border: '#e0ffff', bg: '#0a0a1e', glow: '#87ceeb', effect: 'snowflakes', icon: 'emoji-snowflake' },
+  fire: { fill1: '#ffcc00', fill2: '#ff4500', fill3: '#ff4500', border: '#ff4500', bg: '#1a0500', glow: '#ff6600', effect: 'flames', icon: 'emoji-fire' },
+  matrix: { fill1: '#00ff00', fill2: '#003300', fill3: '#00ff00', border: '#00ff00', bg: '#000000', glow: '#00ff00', effect: 'matrix', icon: 'emoji-skull' },
+  sunset: { fill1: '#ffd700', fill2: '#ff4500', fill3: '#ff7f50', border: '#ff7f50', bg: '#2d1b30', glow: '#ffa07a', effect: 'sunrays', icon: 'emoji-sunset' },
+  kawaii: { fill1: '#ffb6c1', fill2: '#98fb98', fill3: '#b19cd9', border: '#b19cd9', bg: '#2a1f3d', glow: '#ffb6c1', effect: 'kawaii', icon: 'emoji-unicorn' }
 };
 
 // Emoji icons
 var blondieIconsEmoji = {
   'emoji-star': '⭐', 'emoji-heart': '❤️', 'emoji-diamond': '💎', 'emoji-trophy': '🏆', 'emoji-coin': '🪙',
   'emoji-fire': '🔥', 'emoji-bolt': '⚡', 'emoji-crown': '👑', 'emoji-sword': '⚔️', 'emoji-shield': '🛡️',
-  'emoji-potion': '🧪', 'emoji-gem': '💠', 'emoji-skull': '💀', 'emoji-flower': '🌸', 'emoji-music': '🎵'
+  'emoji-potion': '🧪', 'emoji-gem': '💠', 'emoji-skull': '💀', 'emoji-flower': '🌸', 'emoji-music': '🎵',
+  'emoji-wave': '🌊', 'emoji-snowflake': '❄️', 'emoji-radioactive': '☢️',
+  'emoji-gamepad': '🎮', 'emoji-alien': '👾', 'emoji-blood': '🩸', 'emoji-sunset': '🌅', 'emoji-unicorn': '🦄', 'emoji-laptop': '💻', 'emoji-mic': '🎤'
 };
 
 // Pixel SVG icons
@@ -125,7 +127,6 @@ window.addEventListener('onEventReceived', function(obj) {
   if (eventType === 'manual') return;
 
   var eventAmount = event.amount || 0;
-  var isGift = event.bulkGifted !== undefined;
 
   // Twitch events
   if (listener === 'follower-latest' && eventType === 'follower') {
@@ -133,8 +134,15 @@ window.addEventListener('onEventReceived', function(obj) {
     blondieIconPulse();
     blondieUpdateBar();
   }
-  else if (listener === 'subscriber-latest' && eventType === 'subscriber' && !isGift) {
-    blondieProgress++;
+  else if (listener === 'subscriber-latest' && eventType === 'subscriber') {
+    // Skip individual gift recipients (they come with gifted:true but no bulkGifted)
+    // to avoid double-counting with the bulk event
+    if (event.gifted && !event.bulkGifted) {
+      return;
+    }
+    // For bulk/community gifts, use amount field for count
+    var subCount = event.bulkGifted ? (event.amount || 1) : 1;
+    blondieProgress += subCount;
     blondieIconPulse();
     blondieUpdateBar();
   }
@@ -223,12 +231,24 @@ function blondieApplyStyles() {
   root.style.setProperty('--blondie-glow', colors.glow);
   root.style.setProperty('--blondie-glow-size', (blondieFieldData.glowSize || 10) + 'px');
   root.style.setProperty('--blondie-anim-speed', (blondieFieldData.animSpeed || 3) + 's');
+  root.style.setProperty('--blondie-title-font-size', (blondieFieldData.titleFontSize || 14) + 'px');
+  root.style.setProperty('--blondie-values-font-size', (blondieFieldData.valuesFontSize || 14) + 'px');
 
   // Title positioning
-  var titleAlign = blondieFieldData.titleAlign || 'widget';
+  var titleAlign = blondieFieldData.titleAlign || 'row';
   var titlePos = blondieFieldData.titlePosition || 'top';
   var titleText = blondieFieldData.goalTitle || '';
   var valPos = blondieFieldData.valuesPosition || 'below';
+
+  // Parse title position (e.g., 'top-left' -> base: 'top', align: 'left')
+  var titleParts = titlePos.split('-');
+  var titleBase = titleParts[0]; // top, bottom, left, right, hidden
+  var titleHAlign = titleParts[1] || 'center'; // left, right, center
+
+  // Parse values position
+  var valParts = valPos.split('-');
+  var valBase = valParts[0]; // below, above, inside, left, right, hidden
+  var valHAlign = valParts[1] || 'center'; // left, right, center
 
   // All possible title elements
   var titleTop = document.getElementById('blondie-title-top');
@@ -237,10 +257,15 @@ function blondieApplyStyles() {
   var titleRight = document.getElementById('blondie-title-right');
   var titleBarTop = document.getElementById('blondie-title-bar-top');
   var titleBarBottom = document.getElementById('blondie-title-bar-bottom');
+  var titleRowTop = document.getElementById('blondie-title-row-top');
+  var titleRowBottom = document.getElementById('blondie-title-row-bottom');
 
-  // Hide all titles first
-  [titleTop, titleBottom, titleLeft, titleRight, titleBarTop, titleBarBottom].forEach(function(el) {
-    if (el) el.style.display = 'none';
+  // Hide all titles and remove alignment classes
+  [titleTop, titleBottom, titleLeft, titleRight, titleBarTop, titleBarBottom, titleRowTop, titleRowBottom].forEach(function(el) {
+    if (el) {
+      el.style.display = 'none';
+      el.classList.remove('align-left', 'align-center', 'align-right');
+    }
   });
 
   // Calculate title offsets and bar padding for absolutely positioned elements
@@ -250,10 +275,11 @@ function blondieApplyStyles() {
   var barPaddingTop = 0;
   var barPaddingBottom = 0;
 
-  var hasTitleBarTop = titleText && titlePos === 'top' && titleAlign === 'bar';
-  var hasTitleBarBottom = titleText && titlePos === 'bottom' && titleAlign === 'bar';
-  var hasValuesAbove = valPos === 'above';
-  var hasValuesBelow = valPos === 'below';
+  var valuesAlign = blondieFieldData.valuesAlign || 'bar';
+  var hasTitleBarTop = titleText && titleBase === 'top' && titleAlign === 'bar';
+  var hasTitleBarBottom = titleText && titleBase === 'bottom' && titleAlign === 'bar';
+  var hasValuesAbove = valBase === 'above' && valuesAlign === 'bar';
+  var hasValuesBelow = valBase === 'below' && valuesAlign === 'bar';
 
   // Calculate top padding and title offset
   if (hasTitleBarTop && hasValuesAbove) {
@@ -280,23 +306,31 @@ function blondieApplyStyles() {
   root.style.setProperty('--blondie-bar-padding-top', barPaddingTop + 'px');
   root.style.setProperty('--blondie-bar-padding-bottom', barPaddingBottom + 'px');
 
-  if (titleText && titlePos !== 'hidden') {
+  if (titleText && titleBase !== 'hidden') {
     var targetTitle = null;
 
     // Choose correct element based on position and alignment
-    if (titlePos === 'top') {
-      targetTitle = (titleAlign === 'bar') ? titleBarTop : titleTop;
-    } else if (titlePos === 'bottom') {
-      targetTitle = (titleAlign === 'bar') ? titleBarBottom : titleBottom;
-    } else if (titlePos === 'left') {
+    if (titleBase === 'top') {
+      if (titleAlign === 'bar') targetTitle = titleBarTop;
+      else if (titleAlign === 'row') targetTitle = titleRowTop;
+      else targetTitle = titleTop;
+    } else if (titleBase === 'bottom') {
+      if (titleAlign === 'bar') targetTitle = titleBarBottom;
+      else if (titleAlign === 'row') targetTitle = titleRowBottom;
+      else targetTitle = titleBottom;
+    } else if (titleBase === 'left') {
       targetTitle = titleLeft;
-    } else if (titlePos === 'right') {
+    } else if (titleBase === 'right') {
       targetTitle = titleRight;
     }
 
     if (targetTitle) {
       targetTitle.textContent = titleText;
       targetTitle.style.display = 'block';
+      // Add alignment class for bar-aligned and row-aligned titles
+      if ((titleAlign === 'bar' || titleAlign === 'row') && (titleBase === 'top' || titleBase === 'bottom')) {
+        targetTitle.classList.add('align-' + titleHAlign);
+      }
     }
   }
 
@@ -310,16 +344,24 @@ function blondieApplyStyles() {
   if (blondieFieldData.showIcon) {
     var iconEl = blondieFieldData.iconPosition === 'right' ? iconRight : iconLeft;
     if (iconEl) {
-      if (blondieFieldData.iconType === 'custom' && blondieFieldData.customIcon) {
+      // Determine which icon to use
+      var iconType = blondieFieldData.iconType;
+
+      // If iconType is "theme", get icon from current theme
+      if (iconType === 'theme' && theme !== 'custom' && blondieThemes[theme]) {
+        iconType = blondieThemes[theme].icon || 'emoji-star';
+      }
+
+      if (iconType === 'custom' && blondieFieldData.customIcon) {
         var iconSize = blondieFieldData.iconSize || 32;
         var img = document.createElement('img');
         img.src = blondieFieldData.customIcon;
         img.style.cssText = 'width:' + iconSize + 'px;height:' + iconSize + 'px;object-fit:contain;image-rendering:pixelated;';
         iconEl.appendChild(img);
         iconEl.style.display = 'flex';
-      } else if (blondieIcons[blondieFieldData.iconType]) {
-        var iconContent = blondieIcons[blondieFieldData.iconType];
-        var isPixelIcon = blondieFieldData.iconType.indexOf('pixel-') === 0;
+      } else if (blondieIcons[iconType]) {
+        var iconContent = blondieIcons[iconType];
+        var isPixelIcon = iconType.indexOf('pixel-') === 0;
 
         if (isPixelIcon) {
           iconEl.innerHTML = iconContent;
@@ -341,36 +383,56 @@ function blondieApplyStyles() {
 
 function blondieSetupValuesPosition() {
   var valPos = blondieFieldData.valuesPosition || 'below';
+  var valuesAlign = blondieFieldData.valuesAlign || 'row';
+
+  // Parse values position (e.g., 'below-left' -> base: 'below', align: 'left')
+  var valParts = valPos.split('-');
+  var valBase = valParts[0]; // below, above, inside, left, right, hidden
+  var valHAlign = valParts[1] || 'center'; // left, right, center
 
   // Hide all values containers
   var valAbove = document.getElementById('blondie-values-above');
   var valBelow = document.getElementById('blondie-values-below');
+  var valTop = document.getElementById('blondie-values-top');
+  var valBottom = document.getElementById('blondie-values-bottom');
+  var valRowTop = document.getElementById('blondie-values-row-top');
+  var valRowBottom = document.getElementById('blondie-values-row-bottom');
   var valLeft = document.getElementById('blondie-values-left');
   var valRight = document.getElementById('blondie-values-right');
   var valInside = document.getElementById('blondie-values-inside');
 
-  [valAbove, valBelow, valLeft, valRight, valInside].forEach(function(el) {
+  [valAbove, valBelow, valTop, valBottom, valRowTop, valRowBottom, valLeft, valRight, valInside].forEach(function(el) {
     if (el) {
       el.style.display = 'none';
       el.innerHTML = '';
-      el.classList.remove('pos-left', 'pos-center', 'pos-right');
+      el.classList.remove('pos-left', 'pos-center', 'pos-right', 'align-left', 'align-center', 'align-right');
     }
   });
 
   // Show values in correct position
   var targetEl = null;
-  if (valPos === 'above') targetEl = valAbove;
-  else if (valPos === 'below') targetEl = valBelow;
-  else if (valPos === 'left') targetEl = valLeft;
-  else if (valPos === 'right') targetEl = valRight;
-  else if (valPos === 'inside-left' || valPos === 'inside-center' || valPos === 'inside-right') {
+  if (valBase === 'above') {
+    if (valuesAlign === 'bar') targetEl = valAbove;
+    else if (valuesAlign === 'row') targetEl = valRowTop;
+    else targetEl = valTop;
+    targetEl.classList.add('align-' + valHAlign);
+  } else if (valBase === 'below') {
+    if (valuesAlign === 'bar') targetEl = valBelow;
+    else if (valuesAlign === 'row') targetEl = valRowBottom;
+    else targetEl = valBottom;
+    targetEl.classList.add('align-' + valHAlign);
+  } else if (valBase === 'left') {
+    targetEl = valLeft;
+  } else if (valBase === 'right') {
+    targetEl = valRight;
+  } else if (valBase === 'inside') {
     targetEl = valInside;
-    if (valPos === 'inside-left') valInside.classList.add('pos-left');
-    else if (valPos === 'inside-center') valInside.classList.add('pos-center');
-    else if (valPos === 'inside-right') valInside.classList.add('pos-right');
+    if (valHAlign === 'left') valInside.classList.add('pos-left');
+    else if (valHAlign === 'center') valInside.classList.add('pos-center');
+    else if (valHAlign === 'right') valInside.classList.add('pos-right');
   }
 
-  if (targetEl && valPos !== 'hidden') {
+  if (targetEl && valBase !== 'hidden') {
     targetEl.style.display = 'flex';
     targetEl.innerHTML = '<span id="blondie-current">0</span><span class="blondie-separator">|</span><span id="blondie-goal">' + blondieGoalAmount + '</span>';
   }
@@ -558,55 +620,71 @@ function blondieEffectLevelUp(box) {
 }
 
 function blondieEffectBlood(box) {
+  var waves = Math.ceil(blondieEffectDuration / 500);
+  for (var w = 0; w < waves; w++) {
+    (function(wave) {
+      setTimeout(function() {
+        // Main blood drips - bigger and more visible
+        for (var i = 0; i < 25; i++) {
+          var p = document.createElement('div');
+          p.className = 'blondie-particle';
+          var width = 6 + Math.random() * 8;
+          var height = 25 + Math.random() * 35;
+          p.style.cssText = 'left:' + (Math.random()*100) + '%;top:-10px;width:' + width + 'px;height:' + height + 'px;background:linear-gradient(180deg,#ff0000 0%,#cc0000 50%,#8b0000 100%);border-radius:' + (width/2) + 'px ' + (width/2) + 'px 50% 50%;box-shadow:0 0 10px #ff0000,0 0 20px rgba(255,0,0,0.6);animation:blondie-blood-drip ' + (1.0+Math.random()*0.8) + 's ease-in forwards;animation-delay:' + (Math.random()*0.3) + 's;';
+          box.appendChild(p);
+          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 2500, p);
+        }
+        // Blood splatter particles
+        for (var j = 0; j < 15; j++) {
+          var s = document.createElement('div');
+          s.className = 'blondie-particle';
+          var size = 5 + Math.random() * 10;
+          var startX = Math.random() * 100;
+          var splatX = (Math.random() - 0.5) * 80;
+          s.style.cssText = 'left:' + startX + '%;top:40%;width:' + size + 'px;height:' + size + 'px;background:#ff0000;border-radius:50%;box-shadow:0 0 10px #ff0000,0 0 20px rgba(255,0,0,0.8);animation:blondie-blood-splat ' + (0.6+Math.random()*0.5) + 's ease-out forwards;animation-delay:' + (Math.random()*0.2) + 's;--splat-x:' + splatX + 'px;';
+          box.appendChild(s);
+          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 1500, s);
+        }
+      }, wave * 400);
+    })(w);
+  }
+}
+
+function blondieEffectBubbles(box) {
   var waves = Math.ceil(blondieEffectDuration / 600);
   for (var w = 0; w < waves; w++) {
     (function(wave) {
       setTimeout(function() {
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 15; i++) {
           var p = document.createElement('div');
+          var size = 10 + Math.random() * 20;
           p.className = 'blondie-particle';
-          p.style.cssText = 'left:' + (Math.random()*100) + '%;top:0;width:4px;height:' + (15+Math.random()*15) + 'px;background:linear-gradient(180deg,#ff0000,#8b0000);border-radius:2px;animation:blondie-blood-drip ' + (0.8+Math.random()*0.6) + 's ease forwards;animation-delay:' + (Math.random()*0.4) + 's;';
+          p.style.cssText = 'left:' + (Math.random()*100) + '%;top:80%;width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:rgba(0,206,209,0.4);border:2px solid rgba(0,206,209,0.8);box-shadow:0 0 10px rgba(0,206,209,0.5),inset 0 0 10px rgba(255,255,255,0.3);animation:blondie-bubble ' + (1.2+Math.random()*0.8) + 's ease-out forwards;animation-delay:' + (Math.random()*0.4) + 's;';
           box.appendChild(p);
-          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 2000, p);
+          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 2500, p);
         }
       }, wave * 500);
     })(w);
   }
 }
 
-function blondieEffectBubbles(box) {
-  var waves = Math.ceil(blondieEffectDuration / 700);
-  for (var w = 0; w < waves; w++) {
-    (function(wave) {
-      setTimeout(function() {
-        for (var i = 0; i < 12; i++) {
-          var p = document.createElement('div');
-          var size = 8 + Math.random() * 18;
-          p.className = 'blondie-particle';
-          p.style.cssText = 'left:' + (Math.random()*100) + '%;bottom:0;width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:rgba(0,206,209,0.3);border:2px solid rgba(0,206,209,0.6);animation:blondie-bubble ' + (1.5+Math.random()*1) + 's ease forwards;animation-delay:' + (Math.random()*0.6) + 's;';
-          box.appendChild(p);
-          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 3000, p);
-        }
-      }, wave * 600);
-    })(w);
-  }
-}
-
 function blondieEffectPetals(box) {
-  var petals = ['🌸', '🎀', '💮', '🌺'];
-  var waves = Math.ceil(blondieEffectDuration / 700);
+  var petals = ['🌸', '🎀', '💮', '🌺', '✿'];
+  var waves = Math.ceil(blondieEffectDuration / 500);
   for (var w = 0; w < waves; w++) {
     (function(wave) {
       setTimeout(function() {
-        for (var i = 0; i < 12; i++) {
+        for (var i = 0; i < 18; i++) {
           var p = document.createElement('div');
           p.className = 'blondie-particle';
           p.textContent = petals[Math.floor(Math.random()*petals.length)];
-          p.style.cssText = 'left:' + (Math.random()*100) + '%;font-size:' + (14+Math.random()*12) + 'px;animation:blondie-petal ' + (1.8+Math.random()*1.2) + 's ease forwards;animation-delay:' + (Math.random()*0.6) + 's;';
+          var size = 22 + Math.random() * 18;
+          var drift = (Math.random() - 0.5) * 80;
+          p.style.cssText = 'left:' + (Math.random()*100) + '%;top:-10px;font-size:' + size + 'px;filter:drop-shadow(0 0 8px #ff69b4) drop-shadow(0 0 15px #ffb7c5);animation:blondie-petal ' + (1.5+Math.random()*1) + 's ease-out forwards;animation-delay:' + (Math.random()*0.4) + 's;--petal-drift:' + drift + 'px;';
           box.appendChild(p);
-          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 3500, p);
+          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 3000, p);
         }
-      }, wave * 600);
+      }, wave * 400);
     })(w);
   }
 }
@@ -650,16 +728,18 @@ function blondieEffectSparkles(box) {
 }
 
 function blondieEffectSnowflakes(box) {
-  var flakes = ['❄️', '❅', '❆', '✧', '⛄'];
-  var waves = Math.ceil(blondieEffectDuration / 600);
+  var flakes = ['❄️', '❅', '❆', '✧', '⛄', '✦'];
+  var waves = Math.ceil(blondieEffectDuration / 500);
   for (var w = 0; w < waves; w++) {
     (function(wave) {
       setTimeout(function() {
-        for (var i = 0; i < 12; i++) {
+        for (var i = 0; i < 18; i++) {
           var p = document.createElement('div');
           p.className = 'blondie-particle';
           p.textContent = flakes[Math.floor(Math.random()*flakes.length)];
-          p.style.cssText = 'left:' + (Math.random()*100) + '%;color:#e0ffff;text-shadow:0 0 10px #87ceeb;font-size:' + (12+Math.random()*12) + 'px;animation:blondie-snow ' + (1.5+Math.random()*1.5) + 's ease forwards;animation-delay:' + (Math.random()*0.6) + 's;';
+          var size = 20 + Math.random() * 18;
+          var drift = (Math.random() - 0.5) * 60;
+          p.style.cssText = 'left:' + (Math.random()*100) + '%;top:-10px;color:#ffffff;filter:drop-shadow(0 0 8px #87ceeb) drop-shadow(0 0 15px #e0ffff) drop-shadow(0 0 25px #00bfff);font-size:' + size + 'px;animation:blondie-snow ' + (1.3+Math.random()*1) + 's ease-out forwards;animation-delay:' + (Math.random()*0.4) + 's;--snow-drift:' + drift + 'px;';
           box.appendChild(p);
           setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 3500, p);
         }
@@ -674,11 +754,12 @@ function blondieEffectFlames(box) {
   for (var w = 0; w < waves; w++) {
     (function(wave) {
       setTimeout(function() {
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 15; i++) {
           var p = document.createElement('div');
           p.className = 'blondie-particle';
           p.textContent = flames[Math.floor(Math.random()*flames.length)];
-          p.style.cssText = 'left:' + (Math.random()*100) + '%;bottom:0;font-size:' + (18+Math.random()*16) + 'px;animation:blondie-flame ' + (0.8+Math.random()*0.6) + 's ease forwards;animation-delay:' + (Math.random()*0.3) + 's;';
+          var size = 22 + Math.random() * 20;
+          p.style.cssText = 'left:' + (Math.random()*100) + '%;top:70%;font-size:' + size + 'px;filter:drop-shadow(0 0 8px #ff4500) drop-shadow(0 0 15px #ff6600);animation:blondie-flame ' + (0.8+Math.random()*0.6) + 's ease-out forwards;animation-delay:' + (Math.random()*0.3) + 's;';
           box.appendChild(p);
           setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 2000, p);
         }
@@ -688,20 +769,21 @@ function blondieEffectFlames(box) {
 }
 
 function blondieEffectMatrix(box) {
-  var chars = 'アイウエオカキクケコサシスセソタチツテト0123456789ABCDEF';
-  var waves = Math.ceil(blondieEffectDuration / 500);
+  var chars = 'アイウエオカキクケコサシスセソタチツテト0123456789ABCDEF<>{}[]';
+  var waves = Math.ceil(blondieEffectDuration / 400);
   for (var w = 0; w < waves; w++) {
     (function(wave) {
       setTimeout(function() {
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 25; i++) {
           var p = document.createElement('div');
           p.className = 'blondie-particle blondie-matrix-char';
           p.textContent = chars[Math.floor(Math.random()*chars.length)];
-          p.style.cssText = 'left:' + (Math.random()*100) + '%;animation:blondie-matrix ' + (1+Math.random()*0.8) + 's linear forwards;animation-delay:' + (Math.random()*0.4) + 's;';
+          var size = 18 + Math.random() * 16;
+          p.style.cssText = 'left:' + (Math.random()*100) + '%;top:-10px;font-size:' + size + 'px;animation:blondie-matrix ' + (0.8+Math.random()*0.6) + 's linear forwards;animation-delay:' + (Math.random()*0.3) + 's;';
           box.appendChild(p);
-          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 2500, p);
+          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 2000, p);
         }
-      }, wave * 400);
+      }, wave * 350);
     })(w);
   }
 }
@@ -727,19 +809,21 @@ function blondieEffectSunrays(box) {
 
 function blondieEffectKawaii(box) {
   var kawaii = ['💖', '💕', '🦄', '🌈', '⭐', '✨', '🎀', '💗', '🌟', '🍭', '🧁', '💜', '🦋'];
-  var waves = Math.ceil(blondieEffectDuration / 600);
+  var waves = Math.ceil(blondieEffectDuration / 500);
   for (var w = 0; w < waves; w++) {
     (function(wave) {
       setTimeout(function() {
-        for (var i = 0; i < 15; i++) {
+        for (var i = 0; i < 18; i++) {
           var p = document.createElement('div');
           p.className = 'blondie-particle';
           p.textContent = kawaii[Math.floor(Math.random()*kawaii.length)];
-          p.style.cssText = 'left:' + (Math.random()*100) + '%;bottom:0;font-size:' + (16+Math.random()*18) + 'px;animation:blondie-kawaii-float ' + (1.3+Math.random()*1) + 's ease forwards;animation-delay:' + (Math.random()*0.5) + 's;';
+          var size = 20 + Math.random() * 20;
+          var startY = 30 + Math.random() * 40;
+          p.style.cssText = 'left:' + (Math.random()*100) + '%;top:' + startY + '%;font-size:' + size + 'px;filter:drop-shadow(0 0 8px #ff69b4) drop-shadow(0 0 15px #ffb6c1);animation:blondie-kawaii-float ' + (1.2+Math.random()*0.8) + 's ease-out forwards;animation-delay:' + (Math.random()*0.4) + 's;';
           box.appendChild(p);
-          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 3000, p);
+          setTimeout(function(el) { if(el.parentNode) el.parentNode.removeChild(el); }, 2500, p);
         }
-      }, wave * 500);
+      }, wave * 400);
     })(w);
   }
 }
