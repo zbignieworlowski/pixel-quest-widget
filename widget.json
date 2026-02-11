@@ -4,13 +4,13 @@
     "label": "Goal Type",
     "value": "manual",
     "options": {
-      "manual": "🖐️ Manual (chat commands only)",
-      "follower": "👥 Twitch: Followers",
-      "subscriber": "📺 Twitch/YT: Subscribers",
-      "tip": "💰 Tips/Donations",
-      "cheer": "💎 Twitch: Bits/Cheers",
-      "member": "⭐ YouTube: Members",
-      "superchat": "💬 YouTube: Super Chats"
+      "manual": "🖐️ Manual - Use chat commands only",
+      "follower": "👥 Twitch - New Followers",
+      "subscriber": "📺 Twitch - Subscribers (includes gift subs)",
+      "tip": "💰 All Platforms - Tips & Donations",
+      "cheer": "💎 Twitch - Bits/Cheers",
+      "member": "⭐ YouTube - Channel Members",
+      "superchat": "💬 YouTube - Super Chats"
     },
     "group": "📊 Goal Settings"
   },
@@ -31,6 +31,14 @@
     "label": "Goal Target",
     "value": 100,
     "min": 1,
+    "max": 1000000,
+    "group": "📊 Goal Settings"
+  },
+  "startingOffset": {
+    "type": "number",
+    "label": "Starting Offset (adjust SE count, e.g. -408 or +50)",
+    "value": 0,
+    "min": -1000000,
     "max": 1000000,
     "group": "📊 Goal Settings"
   },
@@ -69,10 +77,14 @@
     "label": "Title Position",
     "value": "top",
     "options": {
-      "top": "⬆️ Above",
-      "bottom": "⬇️ Below",
-      "left": "⬅️ Left",
-      "right": "➡️ Right",
+      "top": "⬆️ Above (center)",
+      "top-left": "↖️ Above (left)",
+      "top-right": "↗️ Above (right)",
+      "bottom": "⬇️ Below (center)",
+      "bottom-left": "↙️ Below (left)",
+      "bottom-right": "↘️ Below (right)",
+      "left": "⬅️ Left of bar",
+      "right": "➡️ Right of bar",
       "hidden": "🚫 Hidden"
     },
     "group": "📝 Title"
@@ -80,10 +92,11 @@
   "titleAlign": {
     "type": "dropdown",
     "label": "Title Align To (when above/below)",
-    "value": "widget",
+    "value": "bar",
     "options": {
-      "widget": "📦 Whole widget (bar + icon)",
-      "bar": "📊 Bar only"
+      "row": "🎯 Bar + Icon row",
+      "bar": "📊 Bar only",
+      "widget": "📦 Whole widget"
     },
     "group": "📝 Title"
   },
@@ -92,8 +105,12 @@
     "label": "Progress Values (0/100)",
     "value": "below",
     "options": {
-      "below": "⬇️ Below bar",
-      "above": "⬆️ Above bar",
+      "below": "⬇️ Below (center)",
+      "below-left": "↙️ Below (left)",
+      "below-right": "↘️ Below (right)",
+      "above": "⬆️ Above (center)",
+      "above-left": "↖️ Above (left)",
+      "above-right": "↗️ Above (right)",
       "inside-left": "⬅️ Inside bar (left)",
       "inside-center": "⏺️ Inside bar (center)",
       "inside-right": "➡️ Inside bar (right)",
@@ -101,6 +118,35 @@
       "right": "▶️ Right of bar",
       "hidden": "🚫 Hidden"
     },
+    "group": "📝 Title"
+  },
+  "valuesAlign": {
+    "type": "dropdown",
+    "label": "Values Align To (when above/below)",
+    "value": "bar",
+    "options": {
+      "row": "🎯 Bar + Icon row",
+      "bar": "📊 Bar only",
+      "widget": "📦 Whole widget"
+    },
+    "group": "📝 Title"
+  },
+  "titleFontSize": {
+    "type": "slider",
+    "label": "Title Font Size",
+    "value": 14,
+    "min": 8,
+    "max": 32,
+    "step": 1,
+    "group": "📝 Title"
+  },
+  "valuesFontSize": {
+    "type": "slider",
+    "label": "Values Font Size",
+    "value": 14,
+    "min": 8,
+    "max": 32,
+    "step": 1,
     "group": "📝 Title"
   },
   "colorTheme": {
@@ -137,9 +183,9 @@
   "barHeight": {
     "type": "slider",
     "label": "Bar Height",
-    "value": 32,
+    "value": 50,
     "min": 20,
-    "max": 60,
+    "max": 80,
     "step": 2,
     "group": "📐 Layout"
   },
@@ -290,7 +336,7 @@
   "iconSize": {
     "type": "slider",
     "label": "Icon Size",
-    "value": 32,
+    "value": 52,
     "min": 16,
     "max": 80,
     "step": 4,
@@ -299,8 +345,9 @@
   "iconType": {
     "type": "dropdown",
     "label": "Icon Style",
-    "value": "pixel-star",
+    "value": "theme",
     "options": {
+      "theme": "🎨 Theme Default",
       "custom": "📤 Custom (upload below)",
       "pixel-star": "★ Pixel Star (SVG)",
       "pixel-heart": "♥ Pixel Heart (SVG)",
@@ -331,7 +378,17 @@
       "emoji-gem": "💠 Gem (Emoji)",
       "emoji-skull": "💀 Skull (Emoji)",
       "emoji-flower": "🌸 Flower (Emoji)",
-      "emoji-music": "🎵 Music (Emoji)"
+      "emoji-music": "🎵 Music (Emoji)",
+      "emoji-wave": "🌊 Wave (Emoji)",
+      "emoji-snowflake": "❄️ Snowflake (Emoji)",
+      "emoji-radioactive": "☢️ Radioactive (Emoji)",
+      "emoji-gamepad": "🎮 Gamepad (Emoji)",
+      "emoji-alien": "👾 Alien (Emoji)",
+      "emoji-blood": "🩸 Blood (Emoji)",
+      "emoji-sunset": "🌅 Sunset (Emoji)",
+      "emoji-unicorn": "🦄 Unicorn (Emoji)",
+      "emoji-laptop": "💻 Laptop (Emoji)",
+      "emoji-mic": "🎤 Microphone (Emoji)"
     },
     "group": "🖼️ Icon"
   },
